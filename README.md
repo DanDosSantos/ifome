@@ -25,7 +25,11 @@ Este repositório documenta o desenvolvimento do projeto para a disciplina de De
    git clone https://github.com/DanDosSantos/ifome.git
    cd ifome
 
-2. Ative o ambiente virtual:
+2. Criar o ambiente virtual:
+
+- python -m venv .venv
+
+3. Ative o ambiente virtual:
 
 Linux/MacOS
 - source .venv/bin/activate
@@ -33,22 +37,22 @@ Linux/MacOS
 Windows
 - .venv\Scripts\activate
 
-3. Instale as dependencias:
+4. Instale as dependencias:
 - pip install -r requirements.txt
 
-4. Configure as variáveis de ambiente (crie um arquivo .env na raiz do projeto):
+5. Configure as variáveis de ambiente (crie um arquivo .env na raiz do projeto):
 FLASK_APP=src/app.py
 FLASK_ENV=development
 SECRET_KEY=sua_chave_secreta
 GOOGLE_MAPS_API_KEY=sua_chave_aqui
 
-5. Inicie o banco de dados:
+6. Inicie o banco de dados:
 flask db upgrade
 
-6. Rode o projeto:
+7. Rode o projeto:
 flask run
 
-- Acesse em: http://localhost:8080
+- Acesse em: http://localhost:8090
 
 ---
 
@@ -65,6 +69,8 @@ GOOGLE_MAPS_API_KEY=sua_chave_aqui
 
 3. Contrua e rode os containers:
 docker-compose up --build
+ou
+docker-compose up -d --build
 
 4. O projeto estará disponível em:
-http://localhost:8080
+http://localhost:8090
