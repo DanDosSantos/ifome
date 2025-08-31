@@ -1,12 +1,16 @@
 # ATENÇAO: ISSO É UM MODELO TESTE PARA VCS VERIFICAREM SE ESTA RODANDO NO NAVEGADOR DE VCS.
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def pagina_inicial():
     return '<h1>iFome funcionando! 🚀</h1><p>O container agora vai ficar rodando.</p>'
+
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
 
 # Este bloco só será executado quando você rodar o script diretamente
 if __name__ == '__main__':
