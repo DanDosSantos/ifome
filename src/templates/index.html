@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section -->
+    <section class="bg-gradient-to-r from-yellow-99 to-yellow-99-light py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-4xl md:text-6xl font-bold text-black mb-4">
+                    Sua comida favorita<br>
+                    <span class="text-gray-800">entregue rapidinho</span>
+                </h2>
+                <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+                    Descubra os melhores restaurantes da sua região e peça com facilidade
+                </p>
+                
+                <!-- Location Input -->
+                <div class="max-w-md mx-auto">
+                    <div class="flex">
+                        <input type="text" placeholder="Digite seu endereço..." 
+                               class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        <button class="bg-black text-yellow-99 px-6 py-3 rounded-r-lg font-medium hover:bg-gray-800 transition duration-200">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-8">Categorias</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">🍕</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Pizza</p>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">🍔</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Hambúrguer</p>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">🍣</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Japonesa</p>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">🥗</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Saudável</p>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">🍰</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Doces</p>
+                </div>
+                <div class="text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
+                        <span class="text-2xl">☕</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Bebidas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restaurants -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-8">Restaurantes próximos</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Restaurant Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">🍕</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Pizzaria Bella</h4>
+                        <p class="text-gray-600 text-sm mb-2">Pizza • Italiana</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★☆</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.2)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">25-35 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">🍔</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Burger House</h4>
+                        <p class="text-gray-600 text-sm mb-2">Hambúrguer • Lanches</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★★</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.8)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">15-25 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">🍣</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Sushi Express</h4>
+                        <p class="text-gray-600 text-sm mb-2">Japonesa • Sushi</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★☆</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.5)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">30-40 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">🥗</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Vida Saudável</h4>
+                        <p class="text-gray-600 text-sm mb-2">Saudável • Saladas</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★☆</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.3)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">20-30 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 5 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">🍰</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Doce Tentação</h4>
+                        <p class="text-gray-600 text-sm mb-2">Doces • Sobremesas</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★★</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.9)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">10-20 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 6 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                    <div class="h-48 bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
+                        <span class="text-white text-6xl">☕</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-1">Café Central</h4>
+                        <p class="text-gray-600 text-sm mb-2">Bebidas • Café</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="text-yellow-99 text-sm">★★★★☆</span>
+                                <span class="text-gray-600 text-sm ml-1">(4.1)</span>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="bg-yellow-99 text-black px-2 py-1 rounded text-xs font-medium">5-15 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
