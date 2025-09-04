@@ -1,12 +1,15 @@
 from flask import Flask
 from config_db import db
-
+import os
+from dotenv import load_dotenv
 def create_app():
     app = Flask(__name__)
     
     # Configurações do banco de dados
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ifome.db'  # Exemplo com SQLite
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     
     # Inicializa o SQLAlchemy com o app
     db.init_app(app)
