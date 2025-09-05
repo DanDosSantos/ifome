@@ -18,137 +18,137 @@ class Usuarios(db.Model):
     def __repr__(self):
         return f'<Usuario {self.nome}>'
         
-class Endereco(db.Model):
-    __tablename__ = 'endereco'
+# class Endereco(db.Model):
+#     __tablename__ = 'endereco'
 
-    id = db.Column(db.Integer, primary_key=True)
-    rua = db.Column(db.String(150))
-    numero = db.Column(db.String(20))
-    complemento = db.Column(db.String(100))
-    bairro = db.Column(db.String(100))
-    cidade = db.Column(db.String(100))
-    estado = db.Column(db.String(50))
-    cep = db.Column(db.String(20))
+#     id = db.Column(db.Integer, primary_key=True)
+#     rua = db.Column(db.String(150))
+#     numero = db.Column(db.String(20))
+#     complemento = db.Column(db.String(100))
+#     bairro = db.Column(db.String(100))
+#     cidade = db.Column(db.String(100))
+#     estado = db.Column(db.String(50))
+#     cep = db.Column(db.String(20))
 
-    def __repr__(self):
-        return f'<Endereco {self.rua}, {self.numero}>'
+#     def __repr__(self):
+#         return f'<Endereco {self.rua}, {self.numero}>'
     
-class Restaurante(db.Model):
-    __tablename__ = 'restaurante'
+# class Restaurante(db.Model):
+#     __tablename__ = 'restaurante'
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100))
-    cnpj = db.Column(db.String(20))
-    telefone = db.Column(db.String(15))
-    endereco_id = db.Column(db.Integer, db.ForeignKey('endereco.id'))
-    categoria = db.Column(db.String(50))
+#     id = db.Column(db.Integer, primary_key=True)
+#     nome = db.Column(db.String(100))
+#     cnpj = db.Column(db.String(20))
+#     telefone = db.Column(db.String(15))
+#     endereco_id = db.Column(db.Integer, db.ForeignKey('endereco.id'))
+#     categoria = db.Column(db.String(50))
 
-    endereco = db.relationship('Endereco')
+#     endereco = db.relationship('Endereco')
 
-    def __repr__(self):
-        return f'<Restaurante {self.nome}>'
-    
-
-class Cardapio(db.Model):
-    __tablename__ = 'cardapio'
-
-    id = db.Column(db.Integer, primary_key=True)
-    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
-    nome_cardapio = db.Column(db.String(100))
-
-    restaurante = db.relationship('Restaurante')
-
-    def __repr__(self):
-        return f'<Cardapio {self.nome_cardapio}>'
-
-
-class ItemCardapio(db.Model):
-    __tablename__ = 'item_cardapio'
-
-    id = db.Column(db.Integer, primary_key=True)
-    cardapio_id = db.Column(db.Integer, db.ForeignKey('cardapio.id'))
-    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
-    nome_item = db.Column(db.String(100))
-    descricao = db.Column(db.String(200))
-    preco = db.Column(db.Float)
-    disponivel = db.Column(db.Boolean, default=True)
-
-    cardapio = db.relationship('Cardapio')
-    restaurante = db.relationship('Restaurante')
-
-    def __repr__(self):
-        return f'<ItemCardapio {self.nome_item}>'
-    
-class Pedido(db.Model):
-    __tablename__ = 'pedido'
-
-    id = db.Column(db.Integer, primary_key=True)
-    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
-    restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
-    data_hora = db.Column(db.DateTime)
-    status = db.Column(db.String(20))  # em_preparo, a_caminho, entregue
-    valor_total = db.Column(db.Float)
-
-    usuario = db.relationship('Usuarios')
-    restaurante = db.relationship('Restaurante')
-    itens = db.relationship('ItemPedido', backref='pedido', cascade="all, delete-orphan")
-    pagamento = db.relationship('Pagamento', uselist=False, backref='pedido')
-    entrega = db.relationship('Entrega', uselist=False, backref='pedido')
-
-    def __repr__(self):
-        return f'<Pedido {self.id}>'
-    
-class ItemPedido(db.Model):
-    __tablename__ = 'item_pedido'
-
-    id = db.Column(db.Integer, primary_key=True)
-    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
-    item_cardapio_id = db.Column(db.Integer, db.ForeignKey('item_cardapio.id'))
-    quantidade = db.Column(db.Integer)
-    preco_unitario = db.Column(db.Float)
-
-    item_cardapio = db.relationship('ItemCardapio')
-
-    def __repr__(self):
-        return f'<ItemPedido {self.id}>'
-    
-class Pagamento(db.Model):
-    __tablename__ = 'pagamento'
-
-    id = db.Column(db.Integer, primary_key=True)
-    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
-    forma_pagamento = db.Column(db.String(20))  # cartao, pix, dinheiro
-    status_pagamento = db.Column(db.String(20))  # pendente, aprovado, recusado
-    valor_pago = db.Column(db.Float)
-
-    def __repr__(self):
-        return f'<Pagamento {self.id}>'
+#     def __repr__(self):
+#         return f'<Restaurante {self.nome}>'
     
 
-class Entregador(db.Model):
-    __tablename__ = 'entregador'
+# class Cardapio(db.Model):
+#     __tablename__ = 'cardapio'
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100))
-    cpf = db.Column(db.String(20))
-    telefone = db.Column(db.String(15))
-    veiculo = db.Column(db.String(10))  # moto, bike, carro
+#     id = db.Column(db.Integer, primary_key=True)
+#     restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
+#     nome_cardapio = db.Column(db.String(100))
 
-    def __repr__(self):
-        return f'<Entregador {self.nome}>'
+#     restaurante = db.relationship('Restaurante')
+
+#     def __repr__(self):
+#         return f'<Cardapio {self.nome_cardapio}>'
+
+
+# class ItemCardapio(db.Model):
+#     __tablename__ = 'item_cardapio'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     cardapio_id = db.Column(db.Integer, db.ForeignKey('cardapio.id'))
+#     restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
+#     nome_item = db.Column(db.String(100))
+#     descricao = db.Column(db.String(200))
+#     preco = db.Column(db.Float)
+#     disponivel = db.Column(db.Boolean, default=True)
+
+#     cardapio = db.relationship('Cardapio')
+#     restaurante = db.relationship('Restaurante')
+
+#     def __repr__(self):
+#         return f'<ItemCardapio {self.nome_item}>'
+    
+# class Pedido(db.Model):
+#     __tablename__ = 'pedido'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
+#     restaurante_id = db.Column(db.Integer, db.ForeignKey('restaurante.id'))
+#     data_hora = db.Column(db.DateTime)
+#     status = db.Column(db.String(20))  # em_preparo, a_caminho, entregue
+#     valor_total = db.Column(db.Float)
+
+#     usuario = db.relationship('Usuarios')
+#     restaurante = db.relationship('Restaurante')
+#     itens = db.relationship('ItemPedido', backref='pedido', cascade="all, delete-orphan")
+#     pagamento = db.relationship('Pagamento', uselist=False, backref='pedido')
+#     entrega = db.relationship('Entrega', uselist=False, backref='pedido')
+
+#     def __repr__(self):
+#         return f'<Pedido {self.id}>'
+    
+# class ItemPedido(db.Model):
+#     __tablename__ = 'item_pedido'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
+#     item_cardapio_id = db.Column(db.Integer, db.ForeignKey('item_cardapio.id'))
+#     quantidade = db.Column(db.Integer)
+#     preco_unitario = db.Column(db.Float)
+
+#     item_cardapio = db.relationship('ItemCardapio')
+
+#     def __repr__(self):
+#         return f'<ItemPedido {self.id}>'
+    
+# class Pagamento(db.Model):
+#     __tablename__ = 'pagamento'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
+#     forma_pagamento = db.Column(db.String(20))  # cartao, pix, dinheiro
+#     status_pagamento = db.Column(db.String(20))  # pendente, aprovado, recusado
+#     valor_pago = db.Column(db.Float)
+
+#     def __repr__(self):
+#         return f'<Pagamento {self.id}>'
     
 
-class Entrega(db.Model):
-    __tablename__ = 'entrega'
+# class Entregador(db.Model):
+#     __tablename__ = 'entregador'
 
-    id = db.Column(db.Integer, primary_key=True)
-    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
-    entregador_id = db.Column(db.Integer, db.ForeignKey('entregador.id'))
-    previsao_entrega = db.Column(db.DateTime)
-    data_entrega = db.Column(db.DateTime)
-    status_entrega = db.Column(db.String(20))  # pendente, em_rota, finalizada
+#     id = db.Column(db.Integer, primary_key=True)
+#     nome = db.Column(db.String(100))
+#     cpf = db.Column(db.String(20))
+#     telefone = db.Column(db.String(15))
+#     veiculo = db.Column(db.String(10))  # moto, bike, carro
 
-    entregador = db.relationship('Entregador')
+#     def __repr__(self):
+#         return f'<Entregador {self.nome}>'
+    
 
-    def __repr__(self):
-        return f'<Entrega {self.id}>'
+# class Entrega(db.Model):
+#     __tablename__ = 'entrega'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'))
+#     entregador_id = db.Column(db.Integer, db.ForeignKey('entregador.id'))
+#     previsao_entrega = db.Column(db.DateTime)
+#     data_entrega = db.Column(db.DateTime)
+#     status_entrega = db.Column(db.String(20))  # pendente, em_rota, finalizada
+
+#     entregador = db.relationship('Entregador')
+
+#     def __repr__(self):
+#         return f'<Entrega {self.id}>'
