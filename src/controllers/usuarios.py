@@ -67,7 +67,66 @@ def login():
 
 @usuarios_bp.route('/perfil')
 def perfil():
-    return render_template('perfil.html')
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para acessar essa página.', 'error')
+        return redirect(url_for('usuarios.login'))
+    
+    usuario = Usuarios.query.get(session['usuario_id'])
+    return render_template('perfil.html', usuario=usuario)
+
+@usuarios_bp.route('/editar-perfil', methods=['GET', 'POST'])
+def editar_perfil():
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para acessar essa página.', 'error')
+        return redirect(url_for('usuarios.login'))
+
+    usuario = Usuarios.query.get(session['usuario_id'])
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        telefone = request.form['telefone']
+        telefone_limpo = re.sub(r'\D', '', telefone)
+
+        erros = []
+
+        if not nome or not email or not telefone:
+            erros.append("Todos os campos são obrigatórios.")
+        
+        if len(nome.split()) < 2:
+            erros.append("Digite seu nome completo.")
+        
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            erros.append("Email inválido.")
+
+        if not re.match(r"^\+?\d{10,15}$", telefone_limpo):
+            erros.append("Telefone inválido. Deve conter apenas números e pode incluir o código do país.")
+
+        # Verifica se o email já está em uso por outro usuário
+        email_existente = Usuarios.query.filter(Usuarios.email == email, Usuarios.id != usuario.id).first()
+        if email_existente:
+            erros.append("Este email já está em uso por outro usuário.")
+
+        # Verifica se o telefone já está em uso por outro usuário
+        telefone_existente = Usuarios.query.filter(Usuarios.telefone == telefone_limpo, Usuarios.id != usuario.id).first()
+        if telefone_existente:
+            erros.append("Este telefone já está em uso por outro usuário.")
+
+        if erros:
+            for erro in erros:
+                flash(erro, 'error')
+            return redirect(url_for('usuarios.editar_perfil'))
+
+        usuario.nome = nome
+        usuario.email = email
+        usuario.telefone = telefone_limpo
+
+        db.session.commit()
+        
+        flash('Perfil atualizado com sucesso!', 'success')
+        return redirect(url_for('usuarios.perfil'))
+
+    return render_template('editar-perfil.html', usuario=usuario)
 
 @usuarios_bp.route('/logout')
 def logout():
