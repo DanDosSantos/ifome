@@ -1,5 +1,5 @@
 from app import create_app
-from config_db import db
+from extensions import db
 
 app = create_app()
 

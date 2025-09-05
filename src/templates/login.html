@@ -66,6 +66,62 @@
         </button>
       </div>
     </form>
+    <div class="relative my-4">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-gray-300"></div>
+      </div>
+      <div class="relative flex justify-center text-sm">
+        <span class="px-2 bg-white text-gray-500"> ou continue com </span>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <a
+        href="{{ url_for('usuarios.login_google') }}"
+        class="w-full flex justify-center items-center ..."
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M47.532 24.555c0-1.554-.138-3.052-.41-4.49H24.387v8.472h13.007c-.562 2.742-2.163 5.078-4.66 6.676v5.51h7.08c4.146-3.82 6.56-9.47 6.56-16.168z"
+            fill="#4285F4"
+          />
+          <path
+            d="M24.387 48c6.49 0 11.93-2.14 15.89-5.776l-7.08-5.51c-2.162 1.45-4.92 2.31-7.81 2.31-6.01 0-11.08-4.04-12.9-9.47H4.11v5.68C7.99 42.49 15.6 48 24.387 48z"
+            fill="#34A853"
+          />
+          <path
+            d="M11.487 28.77c-.48-.96-.75-2.02-.75-3.11s.27-2.15.75-3.11V16.87H4.11C2.56 19.98 1.63 23.44 1.63 27.24s.93 7.26 2.48 10.37l7.377-5.84z"
+            fill="#FBBC05"
+          />
+          <path
+            d="M24.387 9.47c3.49 0 6.64 1.208 9.13 3.63l6.27-6.27C36.313 2.66 30.87.5 24.387.5 15.6.5 7.99 6.01 4.11 14.19l7.377 5.68c1.82-5.43 6.89-9.4 12.9-9.4z"
+            fill="#EA4335"
+          />
+        </svg>
+        Entrar com Google
+      </a>
+      <a
+        href="{{ url_for('usuarios.login_facebook') }}"
+        class="w-full flex justify-center items-center ..."
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89H8.078v-2.89h2.36V9.62c0-2.344 1.405-3.63 3.53-3.63 1.01 0 1.875.075 2.13.108v2.585h-1.52c-1.134 0-1.35.538-1.35 1.325v1.755h2.867l-.372 2.89h-2.495v7.008C18.343 21.128 22 16.991 22 12z"
+          />
+        </svg>
+        Entrar com Facebook
+      </a>
+    </div>
   </div>
 </div>
 {% endblock %}
