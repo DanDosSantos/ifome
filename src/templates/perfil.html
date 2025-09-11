@@ -59,11 +59,47 @@
           <h3 class="text-2xl font-semibold text-gray-800 mb-6">
             Meus Endereços
           </h3>
+          {% if usuario.endereco %}
+          <div class="space-y-4">
+            <div>
+              <label class="text-sm font-medium text-gray-600">CEP</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.cep }}</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Rua</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.rua }}</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Número</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.numero }}</p>
+            </div>
+            {% if usuario.endereco.complemento %}
+            <div>
+              <label class="text-sm font-medium text-gray-600">Complemento</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.complemento }}</p>
+            </div>
+            {% endif %}
+            <div>
+              <label class="text-sm font-medium text-gray-600">Bairro</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.bairro }}</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Cidade</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.cidade }}</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Estado</label>
+              <p class="text-lg text-gray-900">{{ usuario.endereco.estado }}</p>
+            </div>
+          </div>
+          {% else %}
           <p class="text-gray-600">Nenhum endereço cadastrado.</p>
-          <button
+          {% endif %}
+          <br>
+          <a href="{{ url_for('usuarios.editar_endereco') }}"
             class="mt-6 bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
             Adicionar Novo Endereço
-          </button>
+          </a>
         </section>
       </main>
     </div>

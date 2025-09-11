@@ -87,39 +87,70 @@ def editar_perfil():
         email = request.form['email']
         telefone = request.form['telefone']
         telefone_limpo = re.sub(r'\D', '', telefone)
+        cep = request.form['cep']
+        rua = request.form['endereco']
+        numero = request.form['numero']
+        complemento = request.form['complemento']
+        bairro = request.form['bairro']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
 
-        erros = []
+        # TODO: adicionar validações mais robustas para o perfil, trazer os erros como no exemplo de cadastro
+        # erros = []
 
-        if not nome or not email or not telefone:
-            erros.append("Todos os campos são obrigatórios.")
+        # if not nome or not email or not telefone:
+        #     erros.append("Todos os campos são obrigatórios.")
         
-        if len(nome.split()) < 2:
-            erros.append("Digite seu nome completo.")
+        # if len(nome.split()) < 2:
+        #     erros.append("Digite seu nome completo.")
         
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            erros.append("Email inválido.")
+        # if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        #     erros.append("Email inválido.")
 
-        if not re.match(r"^\+?\d{10,15}$", telefone_limpo):
-            erros.append("Telefone inválido. Deve conter apenas números e pode incluir o código do país.")
+        # if not re.match(r"^\+?\d{10,15}$", telefone_limpo):
+        #     erros.append("Telefone inválido. Deve conter apenas números e pode incluir o código do país.")
 
-        # Verifica se o email já está em uso por outro usuário
-        email_existente = Usuarios.query.filter(Usuarios.email == email, Usuarios.id != usuario.id).first()
-        if email_existente:
-            erros.append("Este email já está em uso por outro usuário.")
+        # # Verifica se o email já está em uso por outro usuário
+        # email_existente = Usuarios.query.filter(Usuarios.email == email, Usuarios.id != usuario.id).first()
+        # if email_existente:
+        #     erros.append("Este email já está em uso por outro usuário.")
 
-        # Verifica se o telefone já está em uso por outro usuário
-        telefone_existente = Usuarios.query.filter(Usuarios.telefone == telefone_limpo, Usuarios.id != usuario.id).first()
-        if telefone_existente:
-            erros.append("Este telefone já está em uso por outro usuário.")
+        # # Verifica se o telefone já está em uso por outro usuário
+        # telefone_existente = Usuarios.query.filter(Usuarios.telefone == telefone_limpo, Usuarios.id != usuario.id).first()
+        # if telefone_existente:
+        #     erros.append("Este telefone já está em uso por outro usuário.")
 
-        if erros:
-            for erro in erros:
-                flash(erro, 'error')
-            return redirect(url_for('usuarios.editar_perfil'))
+        # if erros:
+        #     for erro in erros:
+        #         flash(erro, 'error')
+        #     return redirect(url_for('usuarios.editar_perfil'))
 
         usuario.nome = nome
         usuario.email = email
         usuario.telefone = telefone_limpo
+        usuario.cep = cep
+        if usuario.endereco is None:
+            from src.models.endereco_model import Endereco
+            novo_endereco = Endereco(
+                rua=rua,
+                numero=numero,
+                complemento=complemento,
+                bairro=bairro,
+                cidade=cidade,
+                estado=estado,
+                cep=cep
+            )
+            db.session.add(novo_endereco)
+            db.session.commit()
+            usuario.endereco = novo_endereco
+        else:
+            usuario.endereco.rua = rua
+            usuario.endereco.numero = numero
+            usuario.endereco.complemento = complemento
+            usuario.endereco.bairro = bairro
+            usuario.endereco.cidade = cidade
+            usuario.endereco.estado = estado
+            usuario.endereco.cep = cep
 
         db.session.commit()
         
@@ -133,3 +164,54 @@ def logout():
     session.clear()
     flash('Você saiu da sua conta.', 'success')
     return redirect(url_for('home.index'))
+
+
+@usuarios_bp.route('/editar-endereco', methods=['GET', 'POST'])
+def editar_endereco():
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para acessar essa página.', 'error')
+        return redirect(url_for('usuarios.login'))
+
+    usuario = Usuarios.query.get(session['usuario_id'])
+
+    if request.method == 'POST':
+        rua = request.form['rua']
+        numero = request.form['numero']
+        complemento = request.form['complemento']
+        bairro = request.form['bairro']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
+        cep = request.form['cep']
+
+        # TODO: adicionar validações mais robustas para o endereço, trazer os erros como no exemplo de cadastro
+
+
+        if usuario.endereco is None:
+            from src.models.endereco_model import Endereco
+            novo_endereco = Endereco(
+                rua=rua,
+                numero=numero,
+                complemento=complemento,
+                bairro=bairro,
+                cidade=cidade,
+                estado=estado,
+                cep=cep
+            )
+            db.session.add(novo_endereco)
+            db.session.commit()
+            usuario.endereco = novo_endereco
+        else:
+            usuario.endereco.rua = rua
+            usuario.endereco.numero = numero
+            usuario.endereco.complemento = complemento
+            usuario.endereco.bairro = bairro
+            usuario.endereco.cidade = cidade
+            usuario.endereco.estado = estado
+            usuario.endereco.cep = cep
+
+        db.session.commit()
+        
+        flash('Endereço atualizado com sucesso!', 'success')
+        return redirect(url_for('usuarios.perfil'))  # Após salvar, redireciona para o perfil
+
+    return render_template('endereco.html', usuario=usuario)  # aqui ele vai passar o usuário com o endereço (se existir)

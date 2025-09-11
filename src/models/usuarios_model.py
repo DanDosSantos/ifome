@@ -1,4 +1,4 @@
-from app import db
+from config_db import db
 
 class Usuarios(db.Model):
     __tablename__ = 'usuarios'
@@ -8,30 +8,26 @@ class Usuarios(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(200), nullable=False)
     telefone = db.Column(db.String(15), nullable=True)
+    endereco_id = db.Column(db.Integer, db.ForeignKey('endereco.id'), nullable=True)
 
-    def __init__(self, nome, email, senha, telefone):
+    # relação para acessar o endereço direto
+    endereco = db.relationship('Endereco', backref='usuario', uselist=False)
+
+    def __init__(self, nome, email, senha, telefone, endereco=None):
         self.nome = nome
         self.email = email
         self.senha = senha
         self.telefone = telefone
+        self.endereco = endereco
 
     def __repr__(self):
         return f'<Usuario {self.nome}>'
         
-# class Endereco(db.Model):
-#     __tablename__ = 'endereco'
+from src.models.endereco_model import Endereco
+Usuarios.endereco = db.relationship("Endereco", backref="usuario", uselist=False)
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     rua = db.Column(db.String(150))
-#     numero = db.Column(db.String(20))
-#     complemento = db.Column(db.String(100))
-#     bairro = db.Column(db.String(100))
-#     cidade = db.Column(db.String(100))
-#     estado = db.Column(db.String(50))
-#     cep = db.Column(db.String(20))
 
-#     def __repr__(self):
-#         return f'<Endereco {self.rua}, {self.numero}>'
+
     
 # class Restaurante(db.Model):
 #     __tablename__ = 'restaurante'

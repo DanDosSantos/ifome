@@ -3,3 +3,5 @@ flask_sqlalchemy
 flask_migrate
 python-dotenv
 requests
+Flask-Mail
+Authlib
