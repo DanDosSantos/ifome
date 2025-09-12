@@ -16,10 +16,15 @@ def create_app():
 
     from src.controllers.usuarios import usuarios_bp
     from src.controllers.home import home_bp
+    from src.controllers.restaurantes import restaurantes_bp
 
     app.register_blueprint(home_bp)
     app.register_blueprint(usuarios_bp)
+<<<<<<< HEAD
     app.register_blueprint(produtos_bp)
+=======
+    app.register_blueprint(restaurantes_bp)
+>>>>>>> d5340049f1e95937d6915cecb6b784764a71f320
 
     return app
 

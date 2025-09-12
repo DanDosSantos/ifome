@@ -1,0 +1,151 @@
+{% extends 'base.html' %} {% block content %}
+<div class="bg-gray-100 flex items-center justify-center min-h-screen py-12">
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+    <div class="text-center mb-8">
+      <h1
+        class="text-3xl font-bold text-yellow-99 bg-black px-4 py-2 rounded inline-block mb-4"
+      >
+        iFome
+      </h1>
+      <h2 class="text-2xl font-bold text-gray-900">Seja um Parceiro!</h2>
+      <p class="text-gray-600 mt-2">
+        Preencha os dados abaixo para cadastrar o seu restaurante.
+      </p>
+    </div>
+
+    <form method="POST" action="#">
+      <fieldset class="border-t border-gray-200 pt-6">
+        <legend class="text-lg font-semibold text-gray-800 mb-4">
+          Dados da Empresa
+        </legend>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              for="nome_restaurante"
+              class="block text-sm font-medium text-gray-700"
+              >Nome do Restaurante</label
+            >
+            <input
+              type="text"
+              id="nome_restaurante"
+              name="nome_restaurante"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label for="cnpj" class="block text-sm font-medium text-gray-700"
+              >CNPJ</label
+            >
+            <input
+              type="text"
+              id="cnpj"
+              name="cnpj"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >E-mail de Contato</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label
+              for="telefone"
+              class="block text-sm font-medium text-gray-700"
+              >Telefone</label
+            >
+            <input
+              type="tel"
+              id="telefone"
+              name="telefone"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border-t border-gray-200 pt-6 mt-8">
+        <legend class="text-lg font-semibold text-gray-800 mb-4">
+          Endereço
+        </legend>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-1">
+            <label for="cep" class="block text-sm font-medium text-gray-700"
+              >CEP</label
+            >
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div class="md:col-span-2">
+            <label for="rua" class="block text-sm font-medium text-gray-700"
+              >Rua / Logradouro</label
+            >
+            <input
+              type="text"
+              id="rua"
+              name="rua"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label for="numero" class="block text-sm font-medium text-gray-700"
+              >Número</label
+            >
+            <input
+              type="text"
+              id="numero"
+              name="numero"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label for="bairro" class="block text-sm font-medium text-gray-700"
+              >Bairro</label
+            >
+            <input
+              type="text"
+              id="bairro"
+              name="bairro"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+          <div>
+            <label for="cidade" class="block text-sm font-medium text-gray-700"
+              >Cidade</label
+            >
+            <input
+              type="text"
+              id="cidade"
+              name="cidade"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-99 focus:border-yellow-99"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="mt-8 pt-5 border-t border-gray-200">
+        <button
+          type="submit"
+          class="w-full bg-yellow-99 hover:bg-yellow-99-dark text-black font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-200 text-lg"
+        >
+          Cadastrar Restaurante
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
