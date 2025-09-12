@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Produtos - iFome</title>
+  <!-- Fonte Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f5f6f7;
+      color: #1c1c1c;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 22px;
+      background: black;
+      color: #FFD700;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    header .actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    header .actions a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1c1c1c;
+      font-size: 15px;
+    }
+
+    header .actions .btn {
+      background-color: #FFD700;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      color: black;
+    }
+
+    /* Container */
+    .container {
+      max-width: 720px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .container h2 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .container p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+
+    /* Formulário */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, textarea, select {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: none;
+      height: 90px;
+    }
+
+    .btn-submit {
+      background: #FFD700;
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: #e6c200;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d1117;
+      color: #ccc;
+      padding: 50px 20px;
+      margin-top: 70px;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    footer h4, footer h1 {
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    footer h1 {
+      font-size: 22px;
+      color: #FFD700;
+    }
+
+    footer p, footer a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 1.6;
+      display: block;
+    }
+
+    footer a:hover {
+      color: #FFD700;
+    }
+
+    .copy {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">iFome</div>
+    <div class="actions">
+      <a href="#">Entrar</a>
+      <a href="#" class="btn">Cadastrar</a>
+    </div>
+  </header>
+
+  <!-- Formulário -->
+  <div class="container">
+    <h2>Cadastre seu Produto</h2>
+    <p>Preencha os dados abaixo para cadastrar o produto no iFome.</p>
+
+    <form action="/produtos/cadastro" method="POST" enctype="multipart/form-data">
+      <div>
+        <label for="nome">Nome do Produto</label>
+        <input type="text" id="nome" name="nome" required>
+      </div>
+
+      <div>
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" placeholder="Escreva os detalhes do produto..." required></textarea>
+      </div>
+
+      <div>
+        <label for="preco">Preço (R$)</label>
+        <input type="number" step="0.01" id="preco" name="preco" required>
+      </div>
+
+      <div>
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria" required>
+          <option value="">Selecione...</option>
+          <option value="lanches">Lanches</option>
+          <option value="bebidas">Bebidas</option>
+          <option value="sobremesas">Sobremesas</option>
+          <option value="outros">Outros</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="imagem">Foto do Produto</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*">
+      </div>
+
+      <button type="submit" class="btn-submit">Cadastrar Produto</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h1>ifome</h1>
+        <p>Seu delivery favorito, sempre rápido e saboroso.</p>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <a href="#">Sobre nós</a>
+        <a href="#">Carreiras</a>
+        <a href="#">Imprensa</a>
+      </div>
+      <div>
+        <h4>Suporte</h4>
+        <a href="#">Central de ajuda</a>
+        <a href="#">Contato</a>
+        <a href="#">Termos de uso</a>
+      </div>
+      <div>
+        <h4>Parceiros</h4>
+        <a href="#">Seja um restaurante</a>
+        <a href="#">Seja um entregador</a>
+      </div>
+    </div>
+    <div class="copy">© 2025 ifome. Todos os direitos reservados.</div>
+  </footer>
+</body>
+</html>
