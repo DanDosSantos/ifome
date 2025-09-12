@@ -26,7 +26,24 @@ class Usuarios(db.Model):
 from src.models.endereco_model import Endereco
 Usuarios.endereco = db.relationship("Endereco", backref="usuario", uselist=False)
 
+class Produto(db.Model):
+    __tablename__ = 'produtos'
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    descricao = db.Column(db.String(255), nullable=False)
+    preco = db.Column(db.Float, nullable=False)
+    categoria = db.Column(db.String(50))
+    imagem = db.Column(db.String(100), nullable=True)
 
+    def __init__(self, nome, descricao, preco, categoria, imagem):
+        self.nome = nome
+        self.descricao = descricao
+        self.preco = preco
+        self.categoria = categoria
+        self.imagem = imagem
+
+    def __repr__(self):
+        return f'<Produto {self.nome}>'
 
     
 # class Restaurante(db.Model):

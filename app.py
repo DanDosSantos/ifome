@@ -1,14 +1,14 @@
 from flask import Flask
-from config_db import db
 import os
 from dotenv import load_dotenv
+from config_db import db
+from src.controllers.produtos import produtos_bp
 def create_app():
     app = Flask(__name__)
     
     # Configurações do banco de dados
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ifome.db'  # Exemplo com SQLite
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     
     # Inicializa o SQLAlchemy com o app
@@ -19,6 +19,7 @@ def create_app():
 
     app.register_blueprint(home_bp)
     app.register_blueprint(usuarios_bp)
+    app.register_blueprint(produtos_bp)
 
     return app
 
