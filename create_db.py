@@ -1,6 +1,9 @@
 from app import create_app
 from config_db import db
 
+# Importa todos os models para o SQLAlchemy "conhecer"
+from src.models.usuarios_model import Usuarios
+from src.models.endereco_model import Endereco
 app = create_app()
 
 with app.app_context():
