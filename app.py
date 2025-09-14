@@ -3,7 +3,7 @@ from config_db import db
 import os
 from dotenv import load_dotenv
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='src/static')
     
     # Configurações do banco de dados
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ifome.db'  # Exemplo com SQLite
