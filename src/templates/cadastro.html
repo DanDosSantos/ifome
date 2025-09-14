@@ -59,10 +59,16 @@
             </div>
             
             <div class="mb-4">
-                <label for="senha" class="block text-gray-700 text-sm font-bold mb-2">Senha:</label>
-                <input type="password" id="senha" name="senha" minlength="8" required
-                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" 
-                       placeholder="********">
+          <label for="senha" class="block text-gray-700 text-sm font-bold mb-2">Senha:</label>
+          <input type="password" id="senha" name="senha" minlength="8" required
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" 
+              placeholder="********">
+          <ul id="senha-requisitos" class="text-xs text-gray-500 mt-1 space-y-1">
+            <li id="req-8" class="">• Pelo menos 8 caracteres</li>
+            <li id="req-maiuscula" class="">• Pelo menos uma letra maiúscula</li>
+            <li id="req-numero" class="">• Pelo menos um número</li>
+            <li id="req-especial" class="">• Pelo menos um caractere especial</li>
+          </ul>
             </div>
             
             <div class="mb-6">
@@ -94,4 +100,47 @@
         </form>
     </div>
 </body>
+        <script>
+        const senhaInput = document.getElementById('senha');
+        const req8 = document.getElementById('req-8');
+        const reqMaiuscula = document.getElementById('req-maiuscula');
+        const reqNumero = document.getElementById('req-numero');
+        const reqEspecial = document.getElementById('req-especial');
+
+        senhaInput.addEventListener('input', function() {
+            const val = senhaInput.value;
+            // 8 caracteres
+            if(val.length >= 8) {
+                req8.classList.add('text-green-600');
+                req8.classList.remove('text-gray-500');
+            } else {
+                req8.classList.remove('text-green-600');
+                req8.classList.add('text-gray-500');
+            }
+            // Maiúscula
+            if(/[A-Z]/.test(val)) {
+                reqMaiuscula.classList.add('text-green-600');
+                reqMaiuscula.classList.remove('text-gray-500');
+            } else {
+                reqMaiuscula.classList.remove('text-green-600');
+                reqMaiuscula.classList.add('text-gray-500');
+            }
+            // Número
+            if(/[0-9]/.test(val)) {
+                reqNumero.classList.add('text-green-600');
+                reqNumero.classList.remove('text-gray-500');
+            } else {
+                reqNumero.classList.remove('text-green-600');
+                reqNumero.classList.add('text-gray-500');
+            }
+            // Especial
+            if(/[^A-Za-z0-9]/.test(val)) {
+                reqEspecial.classList.add('text-green-600');
+                reqEspecial.classList.remove('text-gray-500');
+            } else {
+                reqEspecial.classList.remove('text-green-600');
+                reqEspecial.classList.add('text-gray-500');
+            }
+        });
+        </script>
 </html>

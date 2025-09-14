@@ -12,8 +12,14 @@ def validar_usuario(nome, email, senha, confirmar_senha, telefone):
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         erros.append("Email inválido.")
     
-    if len(senha) < 6:
-        erros.append("A senha deve ter pelo menos 6 caracteres.")
+    if len(senha) < 8:
+        erros.append("A senha deve ter pelo menos 8 caracteres.")
+    if not re.search(r'[A-Z]', senha):
+        erros.append("A senha deve conter pelo menos uma letra maiúscula.")
+    if not re.search(r'[0-9]', senha):
+        erros.append("A senha deve conter pelo menos um número.")
+    if not re.search(r'[^A-Za-z0-9]', senha):
+        erros.append("A senha deve conter pelo menos um caractere especial.")
 
     if senha != confirmar_senha:
         erros.append("As senhas não coincidem.")
