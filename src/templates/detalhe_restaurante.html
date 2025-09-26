@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{{ restaurante.nome }}</h1>
+<p>Telefone: {{ restaurante.telefone }}</p>
+
+<h2>Cardápio</h2>
+<ul>
+  {% for produto in restaurante.produtos %}
+  <li>
+    <strong>{{ produto.nome }}</strong> - R$ {{ "%.2f"|format(produto.preco) }}
+    <p>{{ produto.descricao }}</p>
+    <a href="#">Adicionar ao Carrinho</a>
+  </li>
+  {% else %}
+  <li>Este restaurante ainda não tem produtos cadastrados.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

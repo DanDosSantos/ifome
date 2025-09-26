@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Produto - Ifome</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'yellow-99': '#FFFF00',
+            'yellow-99-light': '#FFF44F',
+            'yellow-99-dark': '#FFD700'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Cadastro de Produto</h2>
+
+    <!-- Mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-4">
+          {% for category, message in messages %}
+            <div class="p-3 rounded text-center 
+              {% if category == 'success' %} bg-green-500 text-white {% else %} bg-red-500 text-white {% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+      <div>
+        <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Produto</label>
+        <input type="text" id="nome" name="nome" required
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+      </div>
+
+      <div>
+        <label for="descricao" class="block text-sm font-medium text-gray-700">Descrição</label>
+        <textarea id="descricao" name="descricao" rows="3" required
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"></textarea>
+      </div>
+
+      <div>
+        <label for="preco" class="block text-sm font-medium text-gray-700">Preço</label>
+        <input type="number" id="preco" name="preco" step="0.01" required
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+      </div>
+
+      <div>
+        <label for="imagem" class="block text-sm font-medium text-gray-700">Imagem do Produto</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required
+          class="w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-99 file:text-black hover:file:bg-yellow-99-dark">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-yellow-99 text-black font-semibold py-2 px-4 rounded-lg hover:bg-yellow-99-dark transition duration-200">
+        Cadastrar Produto
+      </button>
+    </form>
+  </div>
+</body>
+</html>

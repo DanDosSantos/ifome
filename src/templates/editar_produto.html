@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Produto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'yellow-99': '#FFFF00',
+              'yellow-99-light': '#FFF44F',
+              'yellow-99-dark': '#FFD700'
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-gray-50 font-sans">
+   
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="{{ url_for('home.index') }}">
+              <img class="h-12 w-auto" src="{{ url_for('static', filename='logo_ifome.png') }}" alt="ifome Logo" />
+            </a>
+          </div>
+          <div class="hidden md:block flex-1 max-w-lg mx-8">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Buscar restaurantes ou pratos..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+              />
+              <button class="absolute right-2 top-2 text-gray-400 hover:text-yellow-99">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            {% if session['usuario_id'] %}
+              <a href="{{ url_for('usuarios.perfil') }}" class="flex items-center text-gray-700 hover:text-yellow-99-dark font-medium">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>{{ session['usuario_nome'].split()[0] }}</span>
+              </a>
+              <a href="{{ url_for('usuarios.logout') }}" class="bg-gray-200 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">Sair</a>
+            {% else %}
+              <a href="{{ url_for('usuarios.login') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Entrar</a>
+              <a href="{{ url_for('usuarios.cadastro') }}" class="bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">Cadastrar</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    
+    <div class="max-w-3xl mx-auto mt-6 px-4">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="mb-4 p-3 rounded text-center
+              {% if category == 'error' %}bg-red-500 text-white{% else %}bg-green-500 text-white{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <!-- Formulário -->
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow mt-6">
+      <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Editar Produto: {{ produto.nome }}</h1>
+      <form action="{{ url_for('produtos.editar_produto', id=produto.id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <div>
+          <label for="nome" class="block text-gray-700 font-medium mb-2">Nome do Produto</label>
+          <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" />
+        </div>
+        <div>
+          <label for="descricao" class="block text-gray-700 font-medium mb-2">Descrição</label>
+          <textarea id="descricao" name="descricao" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent resize-vertical min-h-[100px]">{{ produto.descricao }}</textarea>
+        </div>
+        <div>
+          <label for="preco" class="block text-gray-700 font-medium mb-2">Preço (R$)</label>
+          <input type="number" id="preco" name="preco" step="0.01" value="{{ '%.2f'|format(produto.preco) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" />
+        </div>
+        <div>
+          <label for="categoria" class="block text-gray-700 font-medium mb-2">Categoria</label>
+          <input type="text" id="categoria" name="categoria" value="{{ produto.categoria }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" />
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Imagem do Produto Atual</label>
+          {% if produto.imagem %}
+            <img src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.nome }}" class="max-w-xs rounded mb-2" />
+          {% else %}
+            <p class="text-gray-500 mb-2">Nenhuma imagem atual.</p>
+          {% endif %}
+          <label for="imagem" class="block text-gray-700 font-medium mb-2">Alterar Imagem</label>
+          <input type="file" id="imagem" name="imagem" accept="image/*" class="w-full" />
+        </div>
+        <button type="submit" class="w-full bg-yellow-99-dark text-black py-3 rounded-lg font-semibold hover:bg-yellow-99 transition duration-200">Atualizar Produto</button>
+      </form>
+      <a href="{{ url_for('produtos.listar_produtos') }}" class="block text-center mt-6 text-yellow-99 font-medium hover:underline">Voltar à Lista de Produtos</a>
+    </div>
+
+    <!-- Footer (igual ao modelo) -->
+    <footer class="bg-gray-900 text-white py-12 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h1 class="text-2xl font-bold text-yellow-99 mb-4">ifome</h1>
+            <p class="text-gray-400">Seu delivery favorito, sempre rápido e saboroso.</p>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Empresa</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-yellow-99">Sobre nós</a></li>
+              <li><a href="#" class="hover:text-yellow-99">Carreiras</a></li>
+              <li><a href="#" class="hover:text-yellow-99">Imprensa</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Suporte</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-yellow-99">Central de ajuda</a></li>
+              <li><a href="#" class="hover:text-yellow-99">Contato</a></li>
+              <li><a href="#" class="hover:text-yellow-99">Termos de uso</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Parceiros</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-yellow-99">Seja um restaurante</a></li>
+              <li><a href="#" class="hover:text-yellow-99">Seja um entregador</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 ifome. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
