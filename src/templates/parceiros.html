@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja um Parceiro ifome - Comece a vender mais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yellow-99': '#FFFF00',
+                        'yellow-99-light': '#FFF44F',
+                        'yellow-99-dark': '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home.parceiros') }}">
+                    <!-- Logo PNG -->
+                    <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('home.index') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Voltar
+                        ao Site</a>
+                    <a href="#"
+                        class="bg-yellow-99 text-black px-6 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
+                        Entrar no portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-yellow-100 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-black mb-6">
+                    Seja um Parceiro <span class="text-gray-800">ifome</span> e comece a vender mais
+                </h1>
+                <p class="text-xl text-gray-800 mb-8 max-w-3xl mx-auto">
+                    Cadastre sua loja e alcance milhares de clientes em sua região.
+                    Gestão simples, entregas rápidas e mais vendas para o seu negócio.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipos de Negócio -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Tem ifome para todo tipo de negócio, inclusive o seu
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Seja qual for o seu segmento, temos a solução ideal para você
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Restaurantes -->
+                <div class="relative group">
+                    <div
+                        class="bg-gradient-to-br from-yellow-99 via-yellow-99-light to-yellow-99-dark rounded-2xl p-8 text-black relative overflow-hidden cursor-pointer hover:scale-105 transition duration-300">
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-bold mb-4">Restaurantes</h3>
+                            <p class="text-lg mb-6">
+                                Ideal para qualquer tamanho e segmento de alimentação
+                            </p>
+                            <a href="{{ url_for('restaurante.cadastro') }}"
+                                class="bg-white text-yellow-500 px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-200 transition duration-200 inline-block">
+                                Cadastrar agora
+                            </a>
+                        </div>
+                        <div class="absolute -right-4 -bottom-4 text-9xl opacity-60">🍔</div>
+                    </div>
+                    <!-- Detalhes animados -->
+                    <div
+                        class="absolute left-0 right-0 top-full mt-2 z-20 opacity-0 pointer-events-none translate-y-4 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-300">
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4 text-center">Categorias de Restaurantes</h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🇧🇷</div>
+                                    <span class="text-sm font-medium">Brasileira</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍔</div>
+                                    <span class="text-sm font-medium">Lanches</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍕</div>
+                                    <span class="text-sm font-medium">Pizzarias</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🧁</div>
+                                    <span class="text-sm font-medium">Doces e Bolos</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍣</div>
+                                    <span class="text-sm font-medium">Japonesa</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🥗</div>
+                                    <span class="text-sm font-medium">Saudável</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍱</div>
+                                    <span class="text-sm font-medium">Marmitas</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍇</div>
+                                    <span class="text-sm font-medium">Açaí</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🍦</div>
+                                    <span class="text-sm font-medium">Sorvetes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multicategorias -->
+                <div class="relative group">
+                    <div
+                        class="bg-gradient-to-br from-yellow-99 via-yellow-99-light to-yellow-99-dark rounded-2xl p-8 text-black relative overflow-hidden cursor-pointer hover:scale-105 transition duration-300">
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-bold mb-4">Multicategorias</h3>
+                            <p class="text-lg mb-6">
+                                Expanda seu negócio além da alimentação
+                            </p>
+                            <a href="#"
+                                class="bg-white text-yellow-500 px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-200 transition duration-200 inline-block">
+                                Cadastrar agora
+                            </a>
+                        </div>
+                        <div class="absolute -right-4 -bottom-4 text-9xl opacity-60">🛍️</div>
+                    </div>
+                    <!-- Detalhes animados -->
+                    <div
+                        class="absolute left-0 right-0 top-full mt-2 z-20 opacity-0 pointer-events-none translate-y-4 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-300">
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4 text-center">Categorias Multicategorias</h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🛒</div>
+                                    <span class="text-sm font-medium">Supermercado</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">💊</div>
+                                    <span class="text-sm font-medium">Farmácia</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🐕</div>
+                                    <span class="text-sm font-medium">Petshop</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🥩</div>
+                                    <span class="text-sm font-medium">Açougue</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">🥬</div>
+                                    <span class="text-sm font-medium">Hortifruti</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">💄</div>
+                                    <span class="text-sm font-medium">Perfumaria</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">📱</div>
+                                    <span class="text-sm font-medium">Eletrônicos</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">💅</div>
+                                    <span class="text-sm font-medium">Beleza</span>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-gray-50 rounded-lg hover:bg-yellow-99/10 transition duration-200">
+                                    <div class="text-3xl mb-2">📝</div>
+                                    <span class="text-sm font-medium">Papelaria</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Vantagens -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Vantagens que só quem é parceiro ifome tem
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Descubra por que milhares de estabelecimentos escolhem o ifome
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition duration-200">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Gestão Simples e Fácil</h3>
+                    <p class="text-gray-600">
+                        Autonomia e facilidade para gerenciar seus pedidos em uma única plataforma
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition duration-200">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Presença em Toda Cidade</h3>
+                    <p class="text-gray-600">
+                        Seus pedidos com um maior alcance de clientes em sua região
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition duration-200">
+                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Aumento nas Vendas</h3>
+                    <p class="text-gray-600">
+                        Potencialize seu faturamento com nossa base de clientes ativos
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Perguntas Frequentes
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Tire suas principais dúvidas sobre ser um parceiro ifome
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md">
+                    <button
+                        class="w-full px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 rounded-lg faq-button">
+                        <div class="flex justify-between items-center">
+                            <span>O ifome serve para o meu negócio?</span>
+                            <svg class="w-5 h-5 transform transition-transform faq-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600 hidden faq-content">
+                        O ifome atende diversos tipos de negócios: restaurantes, lanchonetes, pizzarias, supermercados,
+                        farmácias, petshops e muito mais. Se você vende produtos ou serviços que podem ser entregues, o
+                        ifome é ideal para você!
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md">
+                    <button
+                        class="w-full px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 rounded-lg faq-button">
+                        <div class="flex justify-between items-center">
+                            <span>Como funciona o processo de cadastro?</span>
+                            <svg class="w-5 h-5 transform transition-transform faq-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600 hidden faq-content">
+                        Após preencher o formulário, nossa equipe entrará em contato em até 24 horas para validar os
+                        dados e orientar sobre os próximos passos. O processo é rápido e simples!
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md">
+                    <button
+                        class="w-full px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 rounded-lg faq-button">
+                        <div class="flex justify-between items-center">
+                            <span>Quais são as taxas cobradas?</span>
+                            <svg class="w-5 h-5 transform transition-transform faq-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600 hidden faq-content">
+                        Nossas taxas são competitivas e transparentes. Você só paga quando vende! Entre em contato
+                        conosco para conhecer as condições especiais para seu tipo de negócio.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md">
+                    <button
+                        class="w-full px-6 py-4 text-left font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 rounded-lg faq-button">
+                        <div class="flex justify-between items-center">
+                            <span>Como acessar o Portal do Parceiro?</span>
+                            <svg class="w-5 h-5 transform transition-transform faq-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-600 hidden faq-content">
+                        Após a aprovação do seu cadastro, você receberá as credenciais de acesso ao Portal do Parceiro,
+                        onde poderá gerenciar seus produtos, pedidos e acompanhar suas vendas em tempo real.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold text-yellow-99 mb-4">ifome</div>
+                    <p class="text-gray-400">
+                        Conectando estabelecimentos e clientes com praticidade e rapidez.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Para Parceiros</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#cadastro" class="hover:text-yellow-99">Cadastre sua Loja</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Portal do Parceiro</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Suporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Empresa</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-99">Sobre Nós</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Carreiras</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Imprensa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>📧 parceiros@ifome.com.br</li>
+                        <li>📱 (11) 99999-9999</li>
+                        <li>🕒 Seg-Sex: 8h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ifome. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Formatação de CNPJ
+        document.getElementById('cnpj').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de CPF
+        document.getElementById('cpf_responsavel').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de CEP
+        document.getElementById('cep_estabelecimento').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 5) {
+                value = value.substring(0, 5) + '-' + value.substring(5, 8);
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de telefone
+        function formatPhone(input) {
+            input.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 11) {
+                    if (value.length <= 10) {
+                        value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                        value = value.replace(/(\d{4})(\d)/, '$1-$2');
+                    } else {
+                        value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                        value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                    }
+                }
+                e.target.value = value;
+            });
+        }
+
+        formatPhone(document.getElementById('telefone'));
+        formatPhone(document.getElementById('telefone_responsavel'));
+
+        // Buscar CEP
+        document.getElementById('buscar-cep-estabelecimento').addEventListener('click', function () {
+            const cep = document.getElementById('cep_estabelecimento').value.replace(/\D/g, '');
+
+            if (cep.length !== 8) {
+                alert('Por favor, digite um CEP válido com 8 dígitos.');
+                return;
+            }
+
+            // Simulação de busca de CEP (integrar com API real)
+            const button = this;
+            const originalText = button.textContent;
+            button.textContent = 'Buscando...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                // Dados simulados
+                document.getElementById('rua_estabelecimento').value = 'Rua das Flores';
+                document.getElementById('bairro_estabelecimento').value = 'Centro';
+                document.getElementById('cidade_estabelecimento').value = 'São Paulo';
+                document.getElementById('estado_estabelecimento').value = 'SP';
+
+                button.textContent = originalText;
+                button.disabled = false;
+
+                document.getElementById('numero_estabelecimento').focus();
+            }, 1000);
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const content = this.parentNode.querySelector('.faq-content');
+                const icon = this.querySelector('.faq-icon');
+
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Envio do formulário
+        document.getElementById('partner-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Aqui você integraria com sua API
+            alert('Cadastro enviado com sucesso! Nossa equipe entrará em contato em breve.');
+
+            // Limpar formulário
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

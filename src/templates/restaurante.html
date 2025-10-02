@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre Seu Restaurante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yellow-99': '#FFFF00',
+                        'yellow-99-light': '#FFF44F',
+                        'yellow-99-dark': '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home.parceiros') }}">
+                    <!-- Logo PNG -->
+                    <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('home.parceiros') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Voltar
+                        ao Site</a>
+                    <a href="#"
+                        class="bg-yellow-99 text-black px-6 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
+                        Entrar no portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Imagem de Capa -->
+    <header class="w-full h-80">
+        <img src="{{ url_for('static', filename='imagem-formulario.jpg') }}" alt="Capa"
+            class="w-full h-full object-cover">
+    </header>
+     
+
+    <!-- Formulário de Cadastro -->
+    <section id="cadastro" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Cadastre seu Restaurante no ifome
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Preencha os dados abaixo e comece a vender hoje mesmo
+                </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-8">
+                <form id="partner-form" class="space-y-6">
+                    <!-- Informações do Estabelecimento -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Informações do Estabelecimento</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="nome_estabelecimento"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Nome do Estabelecimento
+                                    *</label>
+                                <input type="text" id="nome_estabelecimento" name="nome_estabelecimento" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="Ex: Pizzaria do João">
+                            </div>
+                            <div>
+                                <label for="categoria" class="block text-sm font-medium text-gray-700 mb-2">Categoria
+                                    *</label>
+                                <select id="categoria" name="categoria" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+                                    <option value="">Selecione a categoria</option>
+                                    <optgroup label="Restaurantes">
+                                        <option value="brasileira">Brasileira</option>
+                                        <option value="doces">Doces e Bolos</option>
+                                        <option value="lanches">Lanches</option>
+                                        <option value="acai">Açaí</option>
+                                        <option value="marmitas">Marmitas</option>
+                                        <option value="pizzarias">Pizzarias</option>
+                                        <option value="saudavel">Saudável</option>
+                                        <option value="sorvetes">Sorvetes</option>
+                                        <option value="japonesa">Japonesa</option>
+                                    </optgroup>
+                                    <!-- <optgroup label="Outras Categorias">
+                                        <option value="supermercado">Supermercado</option>
+                                        <option value="farmacia">Farmácia</option>
+                                        <option value="petshop">Petshop</option>
+                                        <option value="acougue">Açougue</option>
+                                        <option value="hortifruti">Hortifruti</option>
+                                        <option value="perfumaria">Perfumaria</option>
+                                        <option value="eletronicos">Eletrônicos</option>
+                                        <option value="beleza">Beleza</option>
+                                        <option value="presentes">Presentes</option>
+                                        <option value="papelaria">Papelaria</option>
+                                    </optgroup> -->
+                                </select>
+                            </div>
+                            <div>
+                                <label for="cnpj" class="block text-sm font-medium text-gray-700 mb-2">CNPJ *</label>
+                                <input type="text" id="cnpj" name="cnpj" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="00.000.000/0000-00" maxlength="18">
+                            </div>
+                            <div>
+                                <label for="telefone" class="block text-sm font-medium text-gray-700 mb-2">Telefone
+                                    *</label>
+                                <input type="tel" id="telefone" name="telefone" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="(11) 99999-9999">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Endereço -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Endereço do Estabelecimento</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label for="cep"
+                                    class="block text-sm font-medium text-gray-700 mb-2">CEP *</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" id="cep" name="cep" required
+                                        class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                        placeholder="00000-000" maxlength="9">
+                                    <button type="button" id="buscar-cep-estabelecimento"
+                                        class="bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
+                                        Buscar
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="rua"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Rua *</label>
+                                <input type="text" id="rua" name="rua" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="Nome da rua">
+                            </div>
+                            <div>
+                                <label for="numero"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Número *</label>
+                                <input type="text" id="numero" name="numero" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="123">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="bairro"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Bairro *</label>
+                                <input type="text" id="bairro" name="bairro" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="Nome do bairro">
+                            </div>
+                            <div>
+                                <label for="cidade"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Cidade *</label>
+                                <input type="text" id="cidade" name="cidade" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="Nome da cidade">
+                            </div>
+                            <div>
+                                <label for="estado"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Estado *</label>
+                                <select id="estado" name="estado" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+                                    <option value="">Selecione</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="CE">Ceará</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dados do Responsável -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Dados do Responsável</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="nome_responsavel" class="block text-sm font-medium text-gray-700 mb-2">Nome
+                                    Completo *</label>
+                                <input type="text" id="nome_responsavel" name="nome_responsavel" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="Nome do responsável">
+                            </div>
+                            <div>
+                                <label for="email_responsavel"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                                <input type="email" id="email_responsavel" name="email_responsavel" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="email@exemplo.com">
+                            </div>
+                            <div>
+                                <label for="cpf_responsavel" class="block text-sm font-medium text-gray-700 mb-2">CPF
+                                    *</label>
+                                <input type="text" id="cpf_responsavel" name="cpf_responsavel" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="000.000.000-00" maxlength="14">
+                            </div>
+                            <div>
+                                <label for="telefone_responsavel"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Telefone *</label>
+                                <input type="tel" id="telefone_responsavel" name="telefone_responsavel" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent"
+                                    placeholder="(11) 99999-9999">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Horário de Funcionamento -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Horário de Funcionamento</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="horario_abertura"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Horário de Abertura *</label>
+                                <input type="time" id="horario_abertura" name="horario_abertura" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label for="horario_fechamento"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Horário de Fechamento *</label>
+                                <input type="time" id="horario_fechamento" name="horario_fechamento" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <div class="text-center">
+                        <button type="submit"
+                            class="bg-yellow-99 text-black px-8 py-4 rounded-lg text-lg font-bold hover:bg-yellow-99-dark transition duration-200">
+                            Cadastrar Estabelecimento
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold text-yellow-99 mb-4">ifome</div>
+                    <p class="text-gray-400">
+                        Conectando estabelecimentos e clientes com praticidade e rapidez.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Para Parceiros</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#cadastro" class="hover:text-yellow-99">Cadastre sua Loja</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Portal do Parceiro</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Suporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Empresa</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-99">Sobre Nós</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Carreiras</a></li>
+                        <li><a href="#" class="hover:text-yellow-99">Imprensa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>📧 parceiros@ifome.com.br</li>
+                        <li>📱 (11) 99999-9999</li>
+                        <li>🕒 Seg-Sex: 8h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ifome. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Buscar CEP
+        document.getElementById('buscar-cep-estabelecimento').addEventListener('click', async function() {
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+                if(cep.length === 8) {
+                    const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    const data = await res.json();
+                    if(!data.erro) {
+                        document.getElementById('rua').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('cidade').value = data.localidade;
+                        document.getElementById('estado').value = data.uf;
+                    } else {
+                        alert('CEP não encontrado.');
+                    }
+                } else {
+                    alert('CEP inválido. Digite 8 números.');
+                }
+            });
+    </script>
+</body>
+
+</html>
