@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login de Usuário - Ifome</title>
+  <title>Login Parceiro - Ifome</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,8 +23,8 @@
     <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
       <div class="text-center">
         <img class="h-12 w-auto mx-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
-        <h2 class="text-2xl font-bold text-gray-900">Entrar na sua conta</h2>
-        <p class="mt-2 text-sm text-gray-600">
+        <h2 class="text-2xl font-bold text-gray-900">Portal do Parceiro</h2>
+        <p class="mt-2 text-sm text-gray-600">Gerencie sua loja de forma fácil e rápida</p>
       </div>
 
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -71,14 +71,14 @@
           </button>
 
           <div class="text-center">
-            <span class="text-gray-600">Não tem uma conta? </span>
-            <a class="text-yellow-99 hover:text-yellow-99-dark font-bold" href="{{ url_for('usuarios.cadastro') }}">
-              Cadastre-se
+            <span class="text-gray-600">Ainda não tem cadastro? </span>
+            <a class="text-yellow-99 hover:text-yellow-99-dark font-bold" href="{{ url_for('restaurante.cadastro') }}">
+              Cadastre sua loja
             </a>
           </div>
 
           <div class="text-center">
-            <a class="text-gray-600 hover:text-yellow-99" href="{{ url_for('home.index') }}">
+            <a class="text-gray-600 hover:text-yellow-99" href="{{ url_for('home.parceiros') }}">
               ← Voltar para o início
             </a>
           </div>

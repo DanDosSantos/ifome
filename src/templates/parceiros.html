@@ -35,7 +35,7 @@
                 <div class="flex items-center space-x-4">
                     <a href="{{ url_for('home.index') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Voltar
                         ao Site</a>
-                    <a href="#"
+                    <a href="{{ url_for('restaurante.login') }}"
                         class="bg-yellow-99 text-black px-6 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
                         Entrar no portal
                     </a>
@@ -374,7 +374,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <div class="text-2xl font-bold text-yellow-99 mb-4">ifome</div>
+                    <img class="h-12 w-auto" src="{{ url_for('static', filename='logo_ifome.png') }}" alt="ifome Logo" />
                     <p class="text-gray-400">
                         Conectando estabelecimentos e clientes com praticidade e rapidez.
                     </p>
