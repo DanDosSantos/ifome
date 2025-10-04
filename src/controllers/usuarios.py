@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from sqlalchemy import or_
 import re
-import re
 import os
 
 usuarios_bp = Blueprint('usuarios', __name__, template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'))

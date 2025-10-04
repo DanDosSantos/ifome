@@ -13,15 +13,17 @@
                     Descubra os melhores restaurantes da sua região e peça com facilidade
                 </p>
                 
-                <!-- Location Input -->
-                <div class="max-w-md mx-auto">
+                <!-- Location Input, autocomplete off para não lembrar o que ja digitei e permanecer a sugestão no input-->
+                <div class="max-w-md mx-auto relative">
                     <div class="flex">
-                        <input type="text" placeholder="Buscar restaurantes ou pratos..." 
-                               class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black">
-                        <button class="bg-black text-yellow-99 px-6 py-3 rounded-r-lg font-medium hover:bg-gray-800 transition duration-200">
+                        <input id="busca-restaurante" type="text" autocomplete="off" placeholder="Buscar restaurantes ou pratos..."
+                            class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        <button id="btn-buscar" class="bg-black text-yellow-99 px-6 py-3 rounded-r-lg font-medium hover:bg-gray-800 transition duration-200">
                             Buscar
                         </button>
                     </div>
+                    <!-- Dropdown de sugestões centralizado -->
+                    <div id="sugestoes-restaurantes" class="absolute left-0 right-0 bg-white border border-gray-200 rounded-b-lg shadow-lg z-10 hidden w-full"></div>
                 </div>
             </div>
         </div>
@@ -76,7 +78,7 @@
     <section class="py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="text-2xl font-bold text-gray-900 mb-8">Restaurantes próximos</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="restaurantes-lista" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Restaurant Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
                     <div class="h-48 bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
@@ -199,5 +201,80 @@
             </div>
         </div>
     </section>
+
+    <script>
+        const inputBusca = document.getElementById('busca-restaurante');
+        const sugestoesDiv = document.getElementById('sugestoes-restaurantes');
+
+        // Dropdown de sugestões enquanto digita
+        inputBusca.addEventListener('input', async function() {
+            const termo = inputBusca.value.trim();
+            if (termo.length === 0) {
+                sugestoesDiv.classList.add('hidden');
+                sugestoesDiv.innerHTML = '';
+                return;
+            }
+            const res = await fetch(`/api/restaurantes/busca?q=${encodeURIComponent(termo)}`);
+            const restaurantes = await res.json();
+
+            if (restaurantes.length === 0) {
+                sugestoesDiv.innerHTML = `<div class="px-4 py-2 text-gray-500">Nenhum restaurante encontrado.</div>`;
+            } else {
+                sugestoesDiv.innerHTML = restaurantes.map(r => `
+                    <div class="px-4 py-2 hover:bg-yellow-99-light cursor-pointer border-b last:border-b-0" onclick="window.location.href='/restaurante/${r.id}'">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">🍽️</span>
+                            <div>
+                                <div class="font-semibold text-gray-800">${r.nome}</div>
+                                <div class="text-xs text-gray-500">${r.categoria || ''}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            sugestoesDiv.classList.remove('hidden');
+        });
+
+        // Esconde o dropdown ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!inputBusca.contains(e.target) && !sugestoesDiv.contains(e.target)) {
+                sugestoesDiv.classList.add('hidden');
+            }
+        });
+
+        // Botão buscar: mostra resultados completos nos cards
+        document.getElementById('btn-buscar').addEventListener('click', function(e) {
+            e.preventDefault();
+            buscarRestaurantes();
+        });
+
+        // Função para buscar e mostrar nos cards
+        async function buscarRestaurantes() {
+            const termo = document.getElementById('busca-restaurante').value;
+            const res = await fetch(`/api/restaurantes/busca?q=${encodeURIComponent(termo)}`);
+            const restaurantes = await res.json();
+            const lista = document.getElementById('restaurantes-lista');
+            lista.innerHTML = '';
+
+            if (restaurantes.length === 0) {
+                lista.innerHTML = '<div class="col-span-3 text-center text-gray-500">Nenhum restaurante encontrado.</div>';
+                return;
+            }
+
+            restaurantes.forEach(r => {
+                lista.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
+                        <div class="h-48 bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center">
+                            <span class="text-white text-6xl">🍽️</span>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1">${r.nome}</h4>
+                            <p class="text-gray-600 text-sm mb-2">${r.categoria}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
 
 {% endblock content %}

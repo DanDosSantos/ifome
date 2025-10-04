@@ -9,9 +9,10 @@ class Restaurante(db.Model):
     cnpj = db.Column(db.String(20))
     telefone = db.Column(db.String(15))
     categoria = db.Column(db.String(50))
+    email_responsavel = db.Column(db.String(100))
+    senha = db.Column(db.String(200), nullable=False)
     nome_responsavel = db.Column(db.String(100))
     cpf_responsavel = db.Column(db.String(20))
-    email_responsavel = db.Column(db.String(100))
     telefone_responsavel = db.Column(db.String(15))
     hora_abertura = db.Column(db.Time, nullable=False)
     hora_fechamento = db.Column(db.Time, nullable=False)
@@ -19,11 +20,12 @@ class Restaurante(db.Model):
 
     endereco = db.relationship('Endereco', backref='restaurante', uselist=False)
 
-    def __init__(self, nome, cnpj, telefone, categoria, nome_responsavel, cpf_responsavel, email_responsavel, telefone_responsavel, hora_abertura, hora_fechamento, endereco=None):
+    def __init__(self, nome, cnpj, telefone, categoria, senha, nome_responsavel, cpf_responsavel, email_responsavel, telefone_responsavel, hora_abertura, hora_fechamento, endereco=None):
         self.nome = nome
         self.cnpj = cnpj
         self.telefone = telefone
         self.categoria = categoria
+        self.senha = senha
         self.endereco = endereco
         self.nome_responsavel = nome_responsavel
         self.cpf_responsavel = cpf_responsavel
