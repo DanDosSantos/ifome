@@ -42,7 +42,7 @@
               <span>{{ session['usuario_nome'].split()[0] }}</span> </a>
               <a href="{{ url_for('usuarios.logout') }}" class="bg-gray-200 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">Sair</a>
             {% else %}
-              <a href="{{ url_for('home.parceiros') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Restaurante e Mercado</a>
+              <a href="{{ url_for('home.parceiros') }}" class="text-gray-700 hover:text-yellow-99 font-medium" target="_blank">Restaurante e Mercado</a>
               <a href="{{ url_for('usuarios.login') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Entrar</a>
               <a href="{{ url_for('usuarios.cadastro') }}" class="bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">Cadastrar</a>
               {% endif %}
@@ -76,7 +76,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <img class="h-12 w-auto" src="{{ url_for('static', filename='logo_ifome.png') }}" alt="ifome Logo" />
+            <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-amarelo-transparent.png') }}" alt="ifome Logo" />
             <p class="text-gray-400">
               Seu delivery favorito, sempre rápido e saboroso.
             </p>

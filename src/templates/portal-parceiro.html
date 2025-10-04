@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Parceiro - ifome </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yellow-99': '#FFFF00',
+                        'yellow-99-light': '#FFF44F',
+                        'yellow-99-dark': '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white">
+    <!-- Navbar -->
+    <nav class="bg-yellow-99 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16"> <!-- h-16 altura da navbar -->
+                <div class="flex items-center">
+                    <a href="{{ url_for('restaurante.portal_parceiro') }}">
+                        <!-- Logo PNG -->
+                        <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-transparent.png') }}"
+                            alt="ifome Logo" />
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#"
+                        class="bg-black text-yellow-99 px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-black transition duration-200">
+                        Disponível
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
+        type="button"
+        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+            </path>
+        </svg>
+    </button>
+
+    <!-- Sidebar começando a partir da altura h-16 da navbar -->
+    <aside id="default-sidebar"
+        class="fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-200 dark:bg-gray-800">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="#info-estabelecimento"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 22 21">
+                            <path
+                                d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                            <path
+                                d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                        </svg>
+                        <span class="ms-3">Perfil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#produtos"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 18 18">
+                            <path
+                                d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Produtos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 18">
+                            <path
+                                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Avaliações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 18 20">
+                            <path
+                                d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Relatório e Métricas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('restaurante.logout') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content area -->
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-3">
+            <h1 class="text-2xl font-bold mb-4">Bem-vindo ao Portal do Parceiro {{ restaurante.nome }}!</h1>
+            <p class="mb-4">Aqui você pode gerenciar seu restaurante, produtos e pedidos.</p>
+        </div>
+        <main class="md:col-span-2 space-y-8">
+            <section id="info-estabelecimento" class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+                    Informações do Estabelecimento
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Nome do Estabelecimento</label>
+                        <p class="text-lg text-gray-900">{{ restaurante.nome }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">CNPJ</label>
+                        <p class="text-lg text-gray-900">{{ restaurante.cnpj }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">E-mail</label>
+                        <p class="text-lg text-gray-900">{{ restaurante.email_responsavel }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Telefone</label>
+                        <p class="text-lg text-gray-900">{{ restaurante.telefone_responsavel }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Nome do Responsável</label>
+                        <p class="text-lg text-gray-900">{{ restaurante.nome_responsavel }}</p>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Horário de Funcionamento</label>
+                        <p class="text-lg text-gray-900">Das {{ restaurante.hora_abertura.strftime('%H:%M') }} às {{
+                            restaurante.hora_fechamento.strftime('%H:%M') }}</p>
+                    </div>
+                </div>
+                <a href="#" onclick="mostrarFormEdicao()"
+                    class="mt-6 inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">
+                    Editar Dados
+                </a>
+            </section>
+
+            <div id="form-edicao" class="hidden mt-6">
+                <form id="editar-restaurante-form" class="space-y-4 bg-white p-6 rounded-lg shadow">
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Nome do Estabelecimento</label>
+                        <input type="text" name="nome" id="edit-nome" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">CNPJ</label>
+                        <input type="text" name="cnpj" id="edit-cnpj" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">E-mail</label>
+                        <input type="email" name="email_responsavel" id="edit-email"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Telefone</label>
+                        <input type="text" name="telefone_responsavel" id="edit-telefone"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Nome do Responsável</label>
+                        <input type="text" name="nome_responsavel" id="edit-nome-responsavel"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-600">Horário de Funcionamento</label>
+                        <div class="flex gap-2">
+                            <input type="time" name="hora_abertura" id="edit-hora-abertura"
+                                class="border rounded px-3 py-2" required>
+                            <span class="self-center">às</span>
+                            <input type="time" name="hora_fechamento" id="edit-hora-fechamento"
+                                class="border rounded px-3 py-2" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-yellow-99 text-black px-4 py-2 rounded font-bold">Salvar</button>
+                    <button type="button" onclick="cancelarEdicao()"
+                        class="ml-2 bg-gray-300 text-black px-4 py-2 rounded font-bold">Cancelar</button>
+                </form>
+            </div>
+
+            <main class="md:col-span-2 space-y-8">
+                <section id="produtos" class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+                        Produtos Cadastrados
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm font-medium text-gray-600">Produto 1</label>
+                            <p class="text-lg text-gray-900">{{ restaurante.nome }}</p>
+                        </div>
+                    </div>
+                    <a href="#"
+                        class="mt-6 inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">
+                        Cadastrar novo produto
+                    </a>
+                </section>
+
+                <script>
+                    function mostrarFormEdicao() {
+                        // Preenche os campos com os dados atuais (você pode pegar do DOM ou de uma variável JS)
+                        document.getElementById('edit-nome').value = "{{ restaurante.nome }}";
+                        document.getElementById('edit-cnpj').value = "{{ restaurante.cnpj }}";
+                        document.getElementById('edit-email').value = "{{ restaurante.email_responsavel }}";
+                        document.getElementById('edit-telefone').value = "{{ restaurante.telefone_responsavel }}";
+                        document.getElementById('edit-nome-responsavel').value = "{{ restaurante.nome_responsavel }}";
+                        document.getElementById('edit-hora-abertura').value = "{{ restaurante.hora_abertura.strftime('%H:%M') }}";
+                        document.getElementById('edit-hora-fechamento').value = "{{ restaurante.hora_fechamento.strftime('%H:%M') }}";
+                        document.getElementById('form-edicao').classList.remove('hidden');
+                    }
+
+                    function cancelarEdicao() {
+                        document.getElementById('form-edicao').classList.add('hidden');
+                    }
+
+                    // Submete o form via API
+                    document.addEventListener('DOMContentLoaded', function () {
+                        document.getElementById('editar-restaurante-form').addEventListener('submit', async function (e) {
+                            e.preventDefault();
+                            const dados = {
+                                nome: document.getElementById('edit-nome').value,
+                                cnpj: document.getElementById('edit-cnpj').value,
+                                email_responsavel: document.getElementById('edit-email').value,
+                                telefone_responsavel: document.getElementById('edit-telefone').value,
+                                nome_responsavel: document.getElementById('edit-nome-responsavel').value,
+                                hora_abertura: document.getElementById('edit-hora-abertura').value,
+                                hora_fechamento: document.getElementById('edit-hora-fechamento').value
+                            };
+                            const res = await fetch('/api/restaurantes/{{ restaurante.id }}', {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(dados)
+                            });
+                            if (res.ok) {
+                                alert('Dados atualizados com sucesso!');
+                                location.reload();
+                            } else {
+                                alert('Erro ao atualizar dados.');
+                            }
+                        });
+                    });
+                </script>
+
+</body>
+
+</html>

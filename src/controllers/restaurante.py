@@ -1,21 +1,48 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, redirect, jsonify, url_for, flash, session
 from config_db import db
 from src.models.restaurante_model import Restaurante
 from src.models.endereco_model import Endereco
 from datetime import datetime
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 restaurante_bp = Blueprint('restaurante', __name__, template_folder='../templates')
 
+# Template de cadastro de restaurante
 @restaurante_bp.route('/restaurante', methods=['GET'])
 def cadastro():
     return render_template('restaurante.html')
 
-@restaurante_bp.route('/restaurante/login', methods=['GET', 'POST'])
+# Template de login de restaurante
+@restaurante_bp.route('/restaurante/login', methods=['GET'])
 def login():
     return render_template('login-parceiro.html')
 
-# CREATE
+# TODO: Corrigir o redirecionamento de logout para a aba de parceiros
+@restaurante_bp.route('/logout')
+def logout():
+    session.clear()
+    flash('Você saiu da sua conta.', 'success')
+    return redirect('/parceiros')
+
+@restaurante_bp.route('/portal-parceiro')
+def portal_parceiro():
+    restaurante = Restaurante.query.get(session.get('restaurante_id'))
+    return render_template('portal-parceiro.html', restaurante=restaurante)
+
+# Quando clica em Entrar no login de parceiro ele bate nessa rota da API que busca as informações do banco em json para verificar se esta correto e fazer o login
+@restaurante_bp.route('/api/restaurante/login', methods=['POST'])
+def api_login_restaurante():
+    data = request.json
+    email = data.get('email')
+    senha = data.get('senha')
+    restaurante = Restaurante.query.filter_by(email_responsavel=email).first()
+    if restaurante and check_password_hash(restaurante.senha, senha):
+        session['restaurante_id'] = restaurante.id  # Adiciona o ID do restaurante na sessão
+        return jsonify({"message": "Login realizado com sucesso!", "id": restaurante.id}), 200
+    else:
+        return jsonify({"message": "Email ou senha inválidos"}), 401
+
+# CREATE, quando eu crio o form de restaurante bate nessa API que cadastra no banco de dados as informações do restaurante
 @restaurante_bp.route('/api/restaurantes', methods=['POST'])
 def create_restaurante():
     data = request.json
@@ -123,8 +150,10 @@ def update_restaurante(id):
     restaurante = Restaurante.query.get_or_404(id)
 
     for key, value in data.items():
-        if hasattr(restaurante, key):
-            setattr(restaurante, key, value)
+        if key in ['hora_abertura', 'hora_fechamento'] and isinstance(value, str):
+            value = datetime.strptime(value, "%H:%M").time()
+        if hasattr(restaurante, key):  # Se o restaurante tem esse atributo.. restaurante e key
+            setattr(restaurante, key, value) # atualiza o valor com setattr(restaurante, key, value)
 
     db.session.commit()
     return jsonify({"message": "Restaurante atualizado!"})
