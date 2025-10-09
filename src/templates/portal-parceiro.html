@@ -189,10 +189,6 @@
                         <input type="text" name="nome" id="edit-nome" class="w-full border rounded px-3 py-2" required>
                     </div>
                     <div>
-                        <label class="text-sm font-medium text-gray-600">CNPJ</label>
-                        <input type="text" name="cnpj" id="edit-cnpj" class="w-full border rounded px-3 py-2" required>
-                    </div>
-                    <div>
                         <label class="text-sm font-medium text-gray-600">E-mail</label>
                         <input type="email" name="email_responsavel" id="edit-email"
                             class="w-full border rounded px-3 py-2" required>
@@ -244,7 +240,6 @@
                     function mostrarFormEdicao() {
                         // Preenche os campos com os dados atuais (você pode pegar do DOM ou de uma variável JS)
                         document.getElementById('edit-nome').value = "{{ restaurante.nome }}";
-                        document.getElementById('edit-cnpj').value = "{{ restaurante.cnpj }}";
                         document.getElementById('edit-email').value = "{{ restaurante.email_responsavel }}";
                         document.getElementById('edit-telefone').value = "{{ restaurante.telefone_responsavel }}";
                         document.getElementById('edit-nome-responsavel').value = "{{ restaurante.nome_responsavel }}";
@@ -263,7 +258,6 @@
                             e.preventDefault();
                             const dados = {
                                 nome: document.getElementById('edit-nome').value,
-                                cnpj: document.getElementById('edit-cnpj').value,
                                 email_responsavel: document.getElementById('edit-email').value,
                                 telefone_responsavel: document.getElementById('edit-telefone').value,
                                 nome_responsavel: document.getElementById('edit-nome-responsavel').value,

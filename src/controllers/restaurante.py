@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, jsonify, url_for, flash, session
 from config_db import db
+from src.validators.restaurante_validator import validar_restaurante
 from src.models.restaurante_model import Restaurante
 from src.models.endereco_model import Endereco
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import re
 
 restaurante_bp = Blueprint('restaurante', __name__, template_folder='../templates')
 
@@ -59,6 +61,23 @@ def create_restaurante():
     db.session.add(endereco)
     db.session.flush()  # pega o id do endereço
 
+    # Chama o validator
+    erros = validar_restaurante(
+        nome=data.get("nome_estabelecimento"),
+        cnpj=data.get("cnpj"),
+        email=data.get("email_responsavel"),
+        telefone=data.get("telefone"),
+        senha=data.get("senha"),
+        confirmar_senha=data.get("confirmar_senha"),
+        cpf=data.get("cpf_responsavel"),
+        tel_resp=data.get("telefone_responsavel"),
+        hora_abertura=data.get("horario_abertura"),
+        hora_fechamento=data.get("horario_fechamento")
+    )
+    if erros:
+        return jsonify({"errors": erros}), 400
+    
+
     hora_abertura = datetime.strptime(data['horario_abertura'], "%H:%M").time()
     hora_fechamento = datetime.strptime(data['horario_fechamento'], "%H:%M").time()
     senha_hash = generate_password_hash(data["senha"])
@@ -82,7 +101,7 @@ def create_restaurante():
     db.session.add(restaurante)
     db.session.commit()
 
-    return jsonify({"message": "Restaurante criado!", "id": restaurante.id}), 201
+    return jsonify({"message": "Restaurante criado! Faça login no portal do parceiro para continuar.", "id": restaurante.id}), 201
 
 # READ - lista todos
 # Bater nessa rota de todos os restaurantes, vai fazer uma query no banco de dados para buscar todos os restaurantes
