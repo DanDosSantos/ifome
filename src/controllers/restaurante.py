@@ -5,9 +5,12 @@ from src.models.restaurante_model import Restaurante
 from src.models.endereco_model import Endereco
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-import re
+from werkzeug.utils import secure_filename
+import re, os
 
 restaurante_bp = Blueprint('restaurante', __name__, template_folder='../templates')
+
+UPLOAD_FOLDER = 'src/static/uploads'
 
 # Template de cadastro de restaurante
 @restaurante_bp.route('/restaurante', methods=['GET'])
@@ -47,7 +50,8 @@ def api_login_restaurante():
 # CREATE, quando eu crio o form de restaurante bate nessa API que cadastra no banco de dados as informações do restaurante
 @restaurante_bp.route('/api/restaurantes', methods=['POST'])
 def create_restaurante():
-    data = request.json
+    data = request.form
+    imagem = request.files.get('imagem_restaurante')
 
     # Cria endereço primeiro
     endereco = Endereco(
@@ -77,6 +81,11 @@ def create_restaurante():
     if erros:
         return jsonify({"errors": erros}), 400
     
+    imagem_path = None
+    if imagem and imagem.filename:
+        filename = secure_filename(imagem.filename)
+        imagem_path = os.path.join(UPLOAD_FOLDER, filename)
+        imagem.save(imagem_path)  
 
     hora_abertura = datetime.strptime(data['horario_abertura'], "%H:%M").time()
     hora_fechamento = datetime.strptime(data['horario_fechamento'], "%H:%M").time()
@@ -95,7 +104,8 @@ def create_restaurante():
         telefone_responsavel=data["telefone_responsavel"],
         hora_abertura=hora_abertura,
         hora_fechamento=hora_fechamento,
-        endereco=endereco
+        endereco=endereco,
+        imagem_restaurante=imagem_path
     )
 
     db.session.add(restaurante)
@@ -138,6 +148,7 @@ def buscar_restaurantes():
         "id": r.id,
         "nome": r.nome,
         "categoria": r.categoria,
+        "imagem_restaurante": r.imagem_restaurante,
         # ...outros campos que quiser retornar
     } for r in restaurantes])
 
