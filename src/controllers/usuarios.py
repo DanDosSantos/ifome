@@ -211,7 +211,7 @@ def editar_endereco():
 
         db.session.commit()
         
-        flash('Endereço atualizado com sucesso!', 'success')
+        flash('Endereço cadastrado com sucesso!', 'success')
         return redirect(url_for('usuarios.perfil'))  # Após salvar, redireciona para o perfil
 
     return render_template('endereco.html', usuario=usuario)  # aqui ele vai passar o usuário com o endereço (se existir)

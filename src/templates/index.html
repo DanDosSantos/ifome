@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 
 <!-- Hero Section -->
     <section class="bg-gradient-to-r from-yellow-99 to-yellow-99-light py-16">
@@ -29,55 +33,83 @@
         </div>
     </section>
 
-    <!-- Categories -->
-    <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-8">Categorias</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">🍕</span>
+    <!-- Categories Carousel -->
+<section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-8">Pedir seu delivery no iFome é rápido e prático! Conheça as categorias</h3>
+        <div class="relative">
+            <!-- Botões de navegação -->
+            <button id="cat-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow rounded-full p-2 hidden md:block">
+                <span class="text-2xl">&lt;</span>
+            </button>
+            <div id="categorias-carousel" class="flex overflow-x-auto gap-6 scrollbar-hide scroll-smooth py-2 px-1">
+                <!-- Cada categoria -->
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🇧🇷</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Pizza</p>
+                    <span class="text-gray-800 font-medium">Brasileira</span>
                 </div>
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">🍔</span>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍕</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Hambúrguer</p>
+                    <span class="text-gray-800 font-medium">Pizza</span>
                 </div>
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">🍣</span>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍔</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Japonesa</p>
+                    <span class="text-gray-800 font-medium">Lanches</span>
                 </div>
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">🥗</span>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🧁</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Saudável</p>
+                    <span class="text-gray-800 font-medium">Doces e Bolos</span>
                 </div>
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">🍰</span>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍣</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Doces</p>
+                    <span class="text-gray-800 font-medium">Japonesa</span>
                 </div>
-                <div class="text-center group cursor-pointer">
-                    <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-yellow-99-dark transition duration-200">
-                        <span class="text-2xl">☕</span>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🥗</span>
                     </div>
-                    <p class="text-sm font-medium text-gray-700">Bebidas</p>
+                    <span class="text-gray-800 font-medium">Saudável</span>
+                </div>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍱</span>
+                    </div>
+                    <span class="text-gray-800 font-medium">Marmitas</span>
+                </div>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍇</span>
+                    </div>
+                    <span class="text-gray-800 font-medium">Açaí</span>
+                </div>
+                <div class="flex-shrink-0 w-40 flex flex-col items-center bg-white p-4 rounded-lg shadow-md hover:bg-yellow-99/10 hover:scale-105 transition duration-200 cursor-pointer">
+                    <div class="h-16 w-16 rounded-full flex items-center justify-center mb-2">
+                        <span class="text-3xl">🍦</span>
+                    </div>
+                    <span class="text-gray-800 font-medium">Sorvetes</span>
                 </div>
             </div>
+            <button id="cat-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow rounded-full p-2 hidden md:block">
+                <span class="text-2xl">&gt;</span>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Restaurants -->
     <section class="py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-8">Restaurantes próximos</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-8">Lojas</h3>
             <div id="restaurantes-lista" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Restaurant Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
@@ -275,6 +307,15 @@
                 `;
             });
         }
+
+        // Carrossel simples para categorias
+        const carousel = document.getElementById('categorias-carousel');
+        document.getElementById('cat-prev').addEventListener('click', () => {
+            carousel.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+        document.getElementById('cat-next').addEventListener('click', () => {
+            carousel.scrollBy({ left: 200, behavior: 'smooth' });
+        });
     </script>
 
 {% endblock content %}

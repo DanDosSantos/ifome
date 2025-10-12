@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário - Ifome</title>
+    <title>Cadastro de Usuário - iFome</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -55,7 +55,7 @@
                 <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone:</label>
                 <input type="tel" id="telefone" name="telefone" required pattern="\(\d{2}\) \d{4,5}-\d{4}"
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent" 
-                       placeholder="(99) 99999-9999">
+                       placeholder="(99) 99999-9999" maxlength="15" onkeyup="mascaraTelefone(event)">
             </div>
             
             <div class="mb-4">
@@ -143,5 +143,39 @@
                 reqEspecial.classList.add('text-gray-500');
             }
         });
+
+        // Máscara de telefone para (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
+        const mascaraTelefone = (event) => {
+            let input = event.target;
+            // Remove tudo que não for dígito e limita a 11 números
+            let value = input.value.replace(/\D/g, '').substring(0, 11); 
+            let formattedValue = '';
+
+            if (value.length > 2) {
+                // Adiciona o DDD (XX)
+                formattedValue = `(${value.substring(0, 2)}) `;
+                
+                if (value.length > 7) {
+                    // Se for celular (9 dígitos) (XX) XXXXX-XXXX
+                    if (value.length === 11) {
+                        formattedValue += `${value.substring(2, 7)}-${value.substring(7, 11)}`;
+                    } 
+                    // Se for fixo/padrão (8 dígitos) (XX) XXXX-XXXX
+                    else {
+                        formattedValue += `${value.substring(2, 6)}-${value.substring(6, 10)}`;
+                    }
+                } else {
+                    // Continua digitando o corpo do número (XX) XXXX...
+                    formattedValue += value.substring(2);
+                }
+            } else {
+                // Se tem 1 ou 2 dígitos, mostra (X ou (XX
+                formattedValue = value;
+                if (value.length > 0) {
+                    formattedValue = `(${formattedValue}`;
+                }
+            }
+            input.value = formattedValue;
+        };
         </script>
 </html>

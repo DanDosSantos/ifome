@@ -50,7 +50,7 @@
             </div>
           </div>
           <a href="{{ url_for('usuarios.editar_perfil') }}"
-            class="mt-6 inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">
+            class="mt-6 inline-block bg-yellow-99 text-black px-6 py-3 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
             Editar Dados
           </a>
         </section>
@@ -96,10 +96,17 @@
           <p class="text-gray-600">Nenhum endereço cadastrado.</p>
           {% endif %}
           <br>
+          {% if not usuario.endereco %}
           <a href="{{ url_for('usuarios.editar_endereco') }}"
-            class="mt-6 bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
+            class="mt-6 inline-block bg-yellow-99 text-black px-6 py-3 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
             Adicionar Novo Endereço
           </a>
+          {% else %}
+          <a href="{{ url_for('usuarios.editar_endereco') }}"
+            class="mt-6 inline-block bg-yellow-99 text-black px-6 py-3 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">
+            Editar Endereço
+          </a>
+          {% endif %}
         </section>
       </main>
     </div>
