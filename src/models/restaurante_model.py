@@ -1,15 +1,14 @@
 from config_db import db
-from sqlalchemy import Time
 
 class Restaurante(db.Model):
     __tablename__ = 'restaurante'
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100))
-    cnpj = db.Column(db.String(20))
+    cnpj = db.Column(db.String(20), unique=True, nullable=False)
     telefone = db.Column(db.String(15))
     categoria = db.Column(db.String(50))
-    email_responsavel = db.Column(db.String(100))
+    email_responsavel = db.Column(db.String(100), unique=True, nullable=False)
     senha = db.Column(db.String(200), nullable=False)
     nome_responsavel = db.Column(db.String(100))
     cpf_responsavel = db.Column(db.String(20))

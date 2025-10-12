@@ -10,6 +10,7 @@ import os
 
 usuarios_bp = Blueprint('usuarios', __name__, template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'))
 
+# TODO: Utilizar uma API para criação de usuário, não usar flash para API, só para views HTML.
 @usuarios_bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
