@@ -15,11 +15,12 @@ class Restaurante(db.Model):
     telefone_responsavel = db.Column(db.String(15))
     hora_abertura = db.Column(db.Time, nullable=False)
     hora_fechamento = db.Column(db.Time, nullable=False)
+    imagem_restaurante = db.Column(db.String(255))
     endereco_id = db.Column(db.Integer, db.ForeignKey('endereco.id'), nullable=True)
 
     endereco = db.relationship('Endereco', backref='restaurante', uselist=False)
 
-    def __init__(self, nome, cnpj, telefone, categoria, senha, nome_responsavel, cpf_responsavel, email_responsavel, telefone_responsavel, hora_abertura, hora_fechamento, endereco=None):
+    def __init__(self, nome, cnpj, telefone, categoria, senha, nome_responsavel, cpf_responsavel, email_responsavel, telefone_responsavel, hora_abertura, hora_fechamento, endereco=None, imagem_restaurante=None):
         self.nome = nome
         self.cnpj = cnpj
         self.telefone = telefone
@@ -32,6 +33,7 @@ class Restaurante(db.Model):
         self.telefone_responsavel = telefone_responsavel
         self.hora_abertura = hora_abertura
         self.hora_fechamento = hora_fechamento
+        self.imagem_restaurante = imagem_restaurante
 
     def __repr__(self):
         return f'<Restaurante {self.nome}>'

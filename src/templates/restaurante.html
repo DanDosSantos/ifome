@@ -428,43 +428,12 @@
         document.getElementById("partner-form").addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            const formData = {
-                nome_estabelecimento: document.getElementById("nome_estabelecimento").value,
-                categoria: document.getElementById("categoria").value,
-                cnpj: document.getElementById("cnpj").value,
-                telefone: document.getElementById("telefone").value,
-                senha: document.getElementById("senha").value,
-                confirmar_senha: document.getElementById("confirmar_senha").value,
-                cep: document.getElementById("cep").value,
-                rua: document.getElementById("rua").value,
-                numero: document.getElementById("numero").value,
-                bairro: document.getElementById("bairro").value,
-                cidade: document.getElementById("cidade").value,
-                estado: document.getElementById("estado").value,
-                nome_responsavel: document.getElementById("nome_responsavel").value,
-                email_responsavel: document.getElementById("email_responsavel").value,
-                cpf_responsavel: document.getElementById("cpf_responsavel").value,
-                telefone_responsavel: document.getElementById("telefone_responsavel").value,
-                horario_abertura: document.getElementById("horario_abertura").value,
-                horario_fechamento: document.getElementById("horario_fechamento").value
-            };
-
-            // // Limpa mensagens anteriores
-            // let msgDiv2 = document.getElementById("msg-cadastro");
-            // if (!msgDiv2) {
-            //     msgDiv2 = document.createElement("div");
-            //     msgDiv2.id = "msg-cadastro";
-            //     msgDiv2.className = "mt-6 text-center";
-            //     document.querySelector("#partner-form").parentNode.insertBefore(msgDiv2, document.querySelector("#partner-form").nextSibling);
-            // }
-            // msgDiv2.innerHTML = "";
+            const form = document.getElementById("partner-form");
+            const formData = new FormData(form);  // Aqui pega todos os campos, inclusive o arquivo
 
             const response = await fetch("/api/restaurantes", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
+                body: formData   // Não precisa de hearder como estava antes, o browser define o Content-Type automaticamente
             });
 
             const result = await response.json();
@@ -477,7 +446,7 @@
                 ).join('');
             } else if (response.ok) {
                 msgDiv.innerHTML = `<div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-2">${result.message}</div>`;
-                document.getElementById("partner-form").reset();
+                form.reset();
             }
         });
     </script>

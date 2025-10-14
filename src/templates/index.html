@@ -255,7 +255,10 @@
                 sugestoesDiv.innerHTML = restaurantes.map(r => `
                     <div class="px-4 py-2 hover:bg-yellow-99-light cursor-pointer border-b last:border-b-0" onclick="window.location.href='/restaurante/${r.id}'">
                         <div class="flex items-center gap-2">
-                            <span class="text-xl">🍽️</span>
+                            ${r.imagem_restaurante ? 
+                                `<img src="/static/${r.imagem_restaurante.replace(/^.*static[\\/]/, '')}" alt="Logo Restaurante" class="w-10 h-10 rounded-full object-cover border border-gray-300">`
+                                : `<span class="text-xl">🍽️</span>`
+                            }
                             <div>
                                 <div class="font-semibold text-gray-800">${r.nome}</div>
                                 <div class="text-xs text-gray-500">${r.categoria || ''}</div>
@@ -296,8 +299,11 @@
             restaurantes.forEach(r => {
                 lista.innerHTML += `
                     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200 cursor-pointer">
-                        <div class="h-48 bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center">
-                            <span class="text-white text-6xl">🍽️</span>
+                        <div class="h-48 bg-white flex items-center justify-center">
+                            ${r.imagem_restaurante ? 
+                                `<img src="/static/${r.imagem_restaurante.replace(/^.*static[\\/]/, '')}" alt="Logo Restaurante" class="w-40 h-40 rounded-full object-cover border border-gray-300">`
+                                : `<span class="text-xl">🍽️</span>`
+                            }
                         </div>
                         <div class="p-4">
                             <h4 class="text-lg font-semibold text-gray-900 mb-1">${r.nome}</h4>
