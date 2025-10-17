@@ -152,7 +152,7 @@ def buscar_restaurantes():
         # ...outros campos que quiser retornar
     } for r in restaurantes])
 
-# READ - detalhe
+# READ - rota da API que retorna JSON
 # Bater nessa rota, vai fazer uma query no banco de dados para buscar um restaurante específico de acordo com seu id
 @restaurante_bp.route("/api/restaurantes/<int:id>", methods=["GET"])
 def get_restaurante(id):
@@ -171,6 +171,11 @@ def get_restaurante(id):
             "cidade": r.endereco.cidade if r.endereco else None
         }
     })
+
+# READ - rota da página HTML
+@restaurante_bp.route('/restaurante/<int:id>', methods=['GET'])
+def get_restaurante_page(id):
+    return render_template('info_restaurante.html', restaurante_id=id)
 
 
 # UPDATE

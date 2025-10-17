@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iFome - Seu delivery favorito</title>
+    <title>{% block title %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -20,38 +20,11 @@
     </script>
   </head>
   <body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <!-- Logo -->
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-                <a href="{{ url_for('home.index') }}">
-                  <!-- Logo PNG -->
-                  <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
-                </a>
-            </div>
-          </div>
-
-          <!-- Auth Links -->
-          <div class="flex items-center space-x-4">
-            {% if session['usuario_id'] %}
-              <a href="{{ url_for('usuarios.perfil') }}" class="flex items-center text-gray-700 hover:text-yellow-99-dark font-medium">
-              <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-              <span>{{ session['usuario_nome'].split()[0] }}</span> </a>
-              <a href="{{ url_for('usuarios.logout') }}" class="bg-gray-200 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition duration-200">Sair</a>
-            {% else %}
-              <a href="{{ url_for('home.parceiros') }}" class="text-gray-700 hover:text-yellow-99 font-medium" target="_blank">Restaurante e Mercado</a>
-              <a href="{{ url_for('usuarios.login') }}" class="text-gray-700 hover:text-yellow-99 font-medium">Entrar</a>
-              <a href="{{ url_for('usuarios.cadastro') }}" class="bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">Cadastrar</a>
-              {% endif %}
-            </div>
-        </div>
-      </div>
-    </nav>
-
-    </nav> {% with messages = get_flashed_messages(with_categories=true) %}
+    {% block navbar %}
+      {% include 'navbar.html' %}
+    {% endblock %}
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
           {% if category == 'error' %}
@@ -67,58 +40,13 @@
       {% endif %}
     {% endwith %}
     
-    {% block content %}
+    {% block content %}{% endblock %}
     
+    {% block footer %}
+        {% include 'footer.html' %}
     {% endblock %}
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-amarelo-transparent.png') }}" alt="ifome Logo" />
-            <p class="text-gray-400">
-              Seu delivery favorito, sempre rápido e saboroso.
-            </p>
-          </div>
-          <div>
-            <h4 class="text-lg font-semibold mb-4">Empresa</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li><a href="#" class="hover:text-yellow-99">Sobre nós</a></li>
-              <li><a href="#" class="hover:text-yellow-99">Carreiras</a></li>
-              <li><a href="#" class="hover:text-yellow-99">Imprensa</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-semibold mb-4">Suporte</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li>
-                <a href="#" class="hover:text-yellow-99">Central de ajuda</a>
-              </li>
-              <li><a href="#" class="hover:text-yellow-99">Contato</a></li>
-              <li>
-                <a href="#" class="hover:text-yellow-99">Termos de uso</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-semibold mb-4">Parceiros</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li>
-                <a href="#" class="hover:text-yellow-99">Seja um restaurante</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-yellow-99">Seja um entregador</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div
-          class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
-        >
-          <p>&copy; 2025 ifome. Todos os direitos reservados.</p>
-        </div>
-      </div>
-    </footer>
+    {% block scripts %}{% endblock %}
+
   </body>
 </html>

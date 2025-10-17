@@ -1,41 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Endereço - iFome</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'yellow-99': '#FFFF00',
-                        'yellow-99-light': '#FFF44F',
-                        'yellow-99-dark': '#FFD700'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-
-<body class="bg-gray-100 min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="perfil" class="text-gray-700 hover:text-yellow-99">← Voltar ao perfil</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
+{% extends 'base.html' %}
+{% block title %}Cadastro de endereço - iFome{% endblock %}
+{% block navbar %}
+  {% include 'navbar2.html' %}
+{% endblock %}
+{% block content %}
     <!-- Formulário de Endereço -->
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
@@ -106,25 +74,28 @@
                     </a>
                 </div>
     </form>
-</body>
+    {% endblock content %}
+    {% block footer %}{% endblock %}  <!-- NAO exibe o footer da base -->
 
-<script>
-    // Ao clicar no botão "Buscar CEP", preencher os campos de endereço automaticamente via API ViaCEP
-    document.getElementById('btn-buscar-cep').addEventListener('click', async function () {
-        const cep = document.getElementById('cep').value.replace(/\D/g, '');
-        if (cep.length === 8) {
-            const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const data = await res.json();
-            if (!data.erro) {
-                document.getElementById('rua').value = data.logradouro;
-                document.getElementById('bairro').value = data.bairro;
-                document.getElementById('cidade').value = data.localidade;
-                document.getElementById('estado').value = data.uf;
+    {% block scripts %}
+    <script>
+        // Ao clicar no botão "Buscar CEP", preencher os campos de endereço automaticamente via API ViaCEP
+        document.getElementById('btn-buscar-cep').addEventListener('click', async function () {
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = await res.json();
+                if (!data.erro) {
+                    document.getElementById('rua').value = data.logradouro;
+                    document.getElementById('bairro').value = data.bairro;
+                    document.getElementById('cidade').value = data.localidade;
+                    document.getElementById('estado').value = data.uf;
+                } else {
+                    alert('CEP não encontrado.');
+                }
             } else {
-                alert('CEP não encontrado.');
+                alert('CEP inválido. Digite 8 números.');
             }
-        } else {
-            alert('CEP inválido. Digite 8 números.');
-        }
-    });
-</script>
+        });
+    </script>
+    {% endblock %}
