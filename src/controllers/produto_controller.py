@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template,flash,redirect,url_for
+from flask import Blueprint, request, jsonify, render_template,flash,redirect,url_for,session
 from app import db
 from src.models.produtos_model import Produto
 from src.models.cardapio_model import Cardapio
@@ -26,7 +26,7 @@ def cadastrar_produto():
         preco = data.get('preco')
         disponivel = data.get('disponivel', True)
         cardapio_id = data.get('cardapio_id')
-        restaurante_id = data.get('restaurante_id')
+        restaurante_id = session.get('restaurante_id')
 
         if not nome_item or not preco or not cardapio_id or not restaurante_id:
             return jsonify({'status': 'erro', 'mensagem': 'Campos obrigatórios faltando'}), 400
