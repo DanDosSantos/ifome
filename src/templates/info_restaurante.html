@@ -1,13 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}iFome - Restaurante{% endblock %}
 {% block content %}
-    <div id="container" class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
-        <h1 id="nome" class="text-3xl font-bold text-gray-800 mb-4">Carregando...</h1>
-        <p id="endereco" class="text-gray-600 mb-2"></p>
-        <p id="telefone" class="text-gray-600 mb-4"></p>
+    <div class="max-w-7xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
+        <div class="flex items-center gap-6">
+            <img src="{{ url_for('static', filename=restaurante.imagem_restaurante.split('static/')[1]) }}" alt="Imagem do Restaurante" class="w-32 h-32 object-cover rounded-full mb-4">
+            <h1 id="nome" class="text-3xl font-bold text-gray-800">Carregando...</h1>
+            <span class="text-yellow-99-dark">★ 4.8</span>
+        </div>
 
-        <h2 class="text-2xl font-semibold mb-3">Cardápio</h2>
-        <ul id="cardapio" class="space-y-2"></ul>
+        <div class="mt-4">
+            <label><b>Telefone</b></label>
+            <p id="telefone" class="text-gray-600 mb-4"></p>
+            <label><b>Endereço</b></label>
+            <p id="endereco" class="text-gray-600 mb-4"></p>
+            <label><b>Horário de funcionamento</b></label>
+            <p id="hora_funcionamento" class="text-gray-600 mb-4"></p>
+        </div>
+    </div>
+
+    <div id="container" class="max-w-7xl mx-auto mt-8 bg-white p-6 rounded-2xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Cardápio</h2>
+        <ul id="cardapio" class="space-y-4">
+            <!-- Itens do cardápio serão inseridos aqui via JavaScript -->
+        </ul>
+
     </div>
 {% endblock content %}
 
@@ -25,8 +41,9 @@
                 }
 
                 document.getElementById('nome').textContent = data.nome;
-                document.getElementById('endereco').textContent = "📍 " + data.endereco;
-                document.getElementById('telefone').textContent = "📞 " + data.telefone;
+                document.getElementById('hora_funcionamento').textContent = `${data.hora_abertura} - ${data.hora_fechamento}`;
+                document.getElementById('telefone').textContent = data.telefone;
+                document.getElementById('endereco').textContent = `${data.endereco.rua}, ${data.endereco.numero} - ${data.endereco.bairro} - ${data.endereco.cidade}, ${data.endereco.estado}, ${data.endereco.cep}`;
 
                 // const ul = document.getElementById('cardapio');
                 // data.cardapio.forEach(item => {
