@@ -17,10 +17,16 @@ def create_app():
     from src.controllers.usuarios import usuarios_bp
     from src.controllers.home import home_bp
     from src.controllers.restaurante import restaurante_bp
+    from src.controllers.cardapio_controller import cardapio_bp
+    from src.controllers.produto_controller import produto_bp
+
 
     app.register_blueprint(home_bp)
     app.register_blueprint(usuarios_bp)
     app.register_blueprint(restaurante_bp)
+    app.register_blueprint(cardapio_bp)
+    app.register_blueprint(produto_bp)
+    
 
     return app
 

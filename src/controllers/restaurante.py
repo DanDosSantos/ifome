@@ -152,7 +152,7 @@ def buscar_restaurantes():
         # ...outros campos que quiser retornar
     } for r in restaurantes])
 
-# READ - detalhe
+# READ - rota da API que retorna JSON
 # Bater nessa rota, vai fazer uma query no banco de dados para buscar um restaurante específico de acordo com seu id
 @restaurante_bp.route("/api/restaurantes/<int:id>", methods=["GET"])
 def get_restaurante(id):
@@ -163,14 +163,23 @@ def get_restaurante(id):
         "categoria": r.categoria,
         "telefone": r.telefone,
         "responsavel": r.nome_responsavel,
-        "hora_abertura": str(r.hora_abertura),
-        "hora_fechamento": str(r.hora_fechamento),
+        "hora_abertura": r.hora_abertura.strftime('%H:%M') if r.hora_abertura else None,
+        "hora_fechamento": r.hora_fechamento.strftime('%H:%M') if r.hora_fechamento else None,
         "endereco": {
             "rua": r.endereco.rua if r.endereco else None,
             "numero": r.endereco.numero if r.endereco else None,
-            "cidade": r.endereco.cidade if r.endereco else None
+            "bairro": r.endereco.bairro if r.endereco else None,
+            "cidade": r.endereco.cidade if r.endereco else None,
+            "estado": r.endereco.estado if r.endereco else None,
+            "cep": r.endereco.cep if r.endereco else None
         }
     })
+
+# READ - rota da página HTML
+@restaurante_bp.route('/restaurante/<int:id>', methods=['GET'])
+def get_restaurante_page(id):
+    restaurante = Restaurante.query.get_or_404(id)
+    return render_template('info_restaurante.html', restaurante=restaurante, restaurante_id=id)
 
 
 # UPDATE
