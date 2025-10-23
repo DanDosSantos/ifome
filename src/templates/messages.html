@@ -1,0 +1,7 @@
+{% if get_flashed_messages(with_categories=true) %}
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="{{ 'bg-red-500' if category=='error' else 'bg-green-500' }} text-white text-center p-3" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}

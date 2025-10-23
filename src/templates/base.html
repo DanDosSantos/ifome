@@ -24,21 +24,10 @@
       {% include 'navbar.html' %}
     {% endblock %}
     
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          {% if category == 'error' %}
-            <div class="bg-red-500 text-white text-center p-3" role="alert">
-              {{ message }}
-            </div>
-          {% else %}
-            <div class="bg-green-500 text-white text-center p-3" role="alert">
-              {{ message }}
-            </div>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+    <!-- bloco para exibir mensagens acima em verde ou vermelho -->
+    {% block messages %}
+      {% include 'messages.html' %}
+    {% endblock %}
     
     {% block content %}{% endblock %}
     

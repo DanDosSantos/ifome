@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for,session
 from app import db
 from src.models.cardapio_model import Cardapio
+from src.models.produtos_model import Produto
 
 cardapio_bp = Blueprint('cardapio', __name__, template_folder='../templates')
 
@@ -10,10 +11,14 @@ def pagcardapio():
         # Exemplo: supondo que o ID do restaurante está guardado na sessão
         from flask import session
 
-        restaurante_id = session.get('restaurante_id', 1)  # 👈 substitua depois conforme seu login
+        restaurante_id = session.get('restaurante_id')
+        if not restaurante_id:
+            return redirect(url_for('restaurante.portal_parceiro'))
 
         # Busca todos os cardápios do restaurante
         cardapios = Cardapio.query.filter_by(restaurante_id=restaurante_id).all()
+        for c in cardapios:
+            c.itens_cardapio = Produto.query.filter_by(cardapio_id=c.id).all()
 
         # Renderiza o template e passa os cardápios
         return render_template('cardapio.html', cardapios=cardapios)

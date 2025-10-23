@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, redirect, jsonify, url_fo
 from config_db import db
 from src.validators.restaurante_validator import validar_restaurante
 from src.models.restaurante_model import Restaurante
+from src.models.cardapio_model import Cardapio
 from src.models.endereco_model import Endereco
+from src.models.produtos_model import Produto
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -157,6 +159,26 @@ def buscar_restaurantes():
 @restaurante_bp.route("/api/restaurantes/<int:id>", methods=["GET"])
 def get_restaurante(id):
     r = Restaurante.query.get_or_404(id)
+
+    # busca cardápios e produtos
+    cardapios = Cardapio.query.filter_by(restaurante_id=id).all()
+    cardapios_json = []
+    for cardapio in cardapios:
+        produtos = Produto.query.filter_by(cardapio_id=cardapio.id).all()
+        cardapios_json.append({
+            "id": cardapio.id,
+            "nome": cardapio.nome_cardapio,
+            "produtos": [
+                {
+                    "id": p.id,
+                    "nome": p.nome_item,
+                    "descricao": p.descricao,
+                    "preco": float(p.preco) if p.preco is not None else None,
+                    # "imagem": p.imagem_produto  # caminho relativo "uploads/..."
+                } for p in produtos
+            ]
+        })
+
     return jsonify({
         "id": r.id,
         "nome": r.nome,
@@ -172,15 +194,26 @@ def get_restaurante(id):
             "cidade": r.endereco.cidade if r.endereco else None,
             "estado": r.endereco.estado if r.endereco else None,
             "cep": r.endereco.cep if r.endereco else None
-        }
+        },
+        "cardapios": cardapios_json
     })
 
 # READ - rota da página HTML
 @restaurante_bp.route('/restaurante/<int:id>', methods=['GET'])
 def get_restaurante_page(id):
     restaurante = Restaurante.query.get_or_404(id)
-    return render_template('info_restaurante.html', restaurante=restaurante, restaurante_id=id)
 
+    # busca cardápios do restaurante e anexa produtos (não depende de relationship estar perfeita)
+    cardapios = Cardapio.query.filter_by(restaurante_id=id).all()
+    for c in cardapios:
+        c.produtos = Produto.query.filter_by(cardapio_id=c.id).all()
+
+    return render_template(
+        'info_restaurante.html',
+        restaurante=restaurante,
+        cardapio=cardapios,
+        restaurante_id=id
+    )
 
 # UPDATE
 @restaurante_bp.route("/api/restaurantes/<int:id>", methods=["PUT"])
