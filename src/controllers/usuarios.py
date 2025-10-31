@@ -5,8 +5,11 @@ from config_db import db
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from sqlalchemy import or_
+from flask_mail import Message
+from app import mail
 import re
 import os
+import random
 
 usuarios_bp = Blueprint('usuarios', __name__, template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'))
 
@@ -20,28 +23,59 @@ def cadastro():
         senha_hash = generate_password_hash(senha)
         confirmar_senha = request.form['confirmar_senha']
         telefone = request.form['telefone']
-        # Limpa o telefone, removendo tudo que não for dígito
-        telefone_limpo = re.sub(r'\D', '', telefone)
-        # Passa o telefone limpo para o validador
+        telefone_limpo = re.sub(r'\D', '', telefone)  # Limpa o telefone, removendo tudo que não for dígito
+
         erros = validar_usuario(nome, email, senha, confirmar_senha, telefone_limpo)
         if erros:
             for erro in erros:
                 flash(erro, 'error')
             return redirect(url_for('usuarios.cadastro'))
+        
+        verification_code = str(random.randint(100000, 999999))
 
         novo_usuario = Usuarios(
             nome = nome, 
             email = email, 
             senha = senha_hash, 
-            telefone = telefone_limpo
+            telefone = telefone_limpo,
+            is_verified=False,
+            verification_code=verification_code
         )
         db.session.add(novo_usuario)
         db.session.commit()
+
+        # enviar email
+        msg = Message(
+            subject='Código de Verificação - iFome',
+            recipients=[email],
+            body=f"Seu código de verificação é: {verification_code}"
+        )
+        mail.send(msg)
         
-        flash('Cadastro realizado com sucesso! Faça o login.', 'success')
-        return redirect(url_for('usuarios.login'))
+        flash('Cadastro criado! Confirme seu e-mail para continuar.', 'success')
+        return redirect(url_for('usuarios.confirmar_email'))
     
     return render_template('cadastro.html')
+
+
+@usuarios_bp.route('/confirmar-email', methods=['GET', 'POST'])
+def confirmar_email():
+    if request.method == 'POST':
+        email = request.form['email']
+        codigo = request.form['codigo']
+
+        usuario = Usuarios.query.filter_by(email=email).first()
+
+        if usuario and usuario.verification_code == codigo:
+            usuario.is_verified = True
+            db.session.commit()
+            flash('E-mail confirmado! Faça login.', 'success')
+            return redirect(url_for('usuarios.login'))
+
+        flash('Código inválido.', 'error')
+
+    return render_template('confirmar_email.html')
+
 
 @usuarios_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,16 +83,25 @@ def login():
         identificador = request.form['identificador']
         senha = request.form['senha']
         telefone_limpo = re.sub(r'\D', '', identificador)
-        # Procura o usuário por email ou pelo telefone
+
         usuario = Usuarios.query.filter(
             or_(Usuarios.email == identificador, Usuarios.telefone == telefone_limpo)
         ).first()
 
         if usuario and check_password_hash(usuario.senha, senha):
+            
+            # >> BLOQUEIO DE LOGIN SE NÃO VERIFICOU <<
+            if not usuario.is_verified:
+                flash('Confirme seu email antes de fazer login.', 'error')
+                session['usuario_id_pendente'] = usuario.id
+                return redirect(url_for('usuarios.confirmar_email'))
+            # <<---------------------------->>
+
             session['usuario_id'] = usuario.id
             session['usuario_nome'] = usuario.nome
             flash(f'Login realizado com sucesso! Bem-vindo, {usuario.nome}!', 'success')
             return redirect(url_for('home.index'))
+        
         else:
             flash('Email/Telefone ou senha inválidos. Tente novamente.', 'error')
             return redirect(url_for('usuarios.login'))
