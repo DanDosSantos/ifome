@@ -29,6 +29,10 @@
               <a href="{{ url_for('usuarios.cadastro') }}" class="bg-yellow-99 text-black px-4 py-2 rounded-lg font-medium hover:bg-yellow-99-dark transition duration-200">Cadastrar</a>
             {% endif %}
             </div>
-        </div>
+          </div>
       </div>
 </nav>
+
+{% block carrinho %}
+  {% include 'carrinho-lateral.html' %}
+{% endblock %}

@@ -26,14 +26,16 @@ def cadastrar_produto():
         preco = data.get('preco')
         disponivel = data.get('disponivel', True)
         cardapio_id = data.get('cardapio_id')
-        restaurante_id = session.get('restaurante_id')
 
-        if not nome_item or not preco or not cardapio_id or not restaurante_id:
+        if not nome_item or not preco or not cardapio_id:
             return jsonify({'status': 'erro', 'mensagem': 'Campos obrigatórios faltando'}), 400
 
         cardapio = Cardapio.query.get(cardapio_id)
         if not cardapio:
             return jsonify({'status': 'erro', 'mensagem': 'Cardápio não encontrado'}), 404
+        
+        # usa restaurante_id do cardápio (garante consistência)
+        restaurante_id = cardapio.restaurante_id
 
         novo_produto = Produto(
             nome_item=nome_item,

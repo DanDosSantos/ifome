@@ -115,3 +115,8 @@
   </div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+  <!-- Importa o JS do carrinho lateral -->
+    <script src="{{ url_for('static', filename='js/carrinho.js') }}"></script>
+{% endblock %}

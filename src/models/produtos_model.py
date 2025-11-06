@@ -11,4 +11,7 @@ class Produto(db.Model):
     preco = db.Column(db.Float, nullable=False)
     disponivel = db.Column(db.Boolean, default=True, nullable=False)
 
-    cardapio = db.relationship("Cardapio", backref="itens_cardapio", lazy=True)
+    cardapio = db.relationship("Cardapio", back_populates="produtos", lazy=True)
+
+    def __repr__(self):
+        return f"<Produto {self.nome_item}>"

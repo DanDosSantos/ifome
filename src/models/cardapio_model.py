@@ -12,15 +12,15 @@ class Cardapio(db.Model):
     restaurante = db.relationship('Restaurante', backref='cardapios', lazy=True)
 
     produtos = db.relationship(
-        "Produto", 
+        "Produto",
         back_populates="cardapio",
+        lazy=True,
         cascade="all, delete-orphan"  # faz a exclusão automática dos produtos
     )
 
-    def __init__(self, nome_cardapio, restaurante_id, produto_id=None, ativo=True):
-        self.nome_cardapio = nome_cardapio.strip().title()
+    def __init__(self, nome_cardapio, restaurante_id, ativo=True):
+        self.nome_cardapio = nome_cardapio
         self.restaurante_id = restaurante_id
-        self.produto_id = produto_id
         self.ativo = ativo
 
     def __repr__(self):
