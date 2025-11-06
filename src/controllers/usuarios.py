@@ -33,27 +33,34 @@ def cadastro():
         
         verification_code = str(random.randint(100000, 999999))
 
-        novo_usuario = Usuarios(
-            nome = nome, 
-            email = email, 
-            senha = senha_hash, 
-            telefone = telefone_limpo,
-            is_verified=False,
-            verification_code=verification_code
-        )
-        db.session.add(novo_usuario)
-        db.session.commit()
+        try:
+            # criar usuario, gerar código
+            novo_usuario = Usuarios(
+                nome=nome,
+                email=email,
+                senha=senha_hash,
+                telefone=telefone_limpo,
+                is_verified=False,
+                verification_code=verification_code
+            )
+            db.session.add(novo_usuario)
 
-        # enviar email
-        msg = Message(
-            subject='Código de Verificação - iFome',
-            recipients=[email],
-            body=f"Seu código de verificação é: {verification_code}"
-        )
-        mail.send(msg)
+            # enviar email
+            msg = Message(
+                subject='Código de Verificação - iFome',
+                recipients=[email],
+                body=f"Seu código de verificação é: {verification_code}"
+            )
+            mail.send(msg)
+
+            db.session.commit()  # só confirma se o e-mail foi enviado
+            flash('Cadastro criado! Confirme seu e-mail para continuar.', 'success')
+            return redirect(url_for('usuarios.confirmar_email'))
         
-        flash('Cadastro criado! Confirme seu e-mail para continuar.', 'success')
-        return redirect(url_for('usuarios.confirmar_email'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao enviar e-mail: {e}', 'error')
+            return redirect(url_for('usuarios.cadastro'))
     
     return render_template('cadastro.html')
 
@@ -89,19 +96,16 @@ def login():
         ).first()
 
         if usuario and check_password_hash(usuario.senha, senha):
-            
             # >> BLOQUEIO DE LOGIN SE NÃO VERIFICOU <<
             if not usuario.is_verified:
                 flash('Confirme seu email antes de fazer login.', 'error')
                 session['usuario_id_pendente'] = usuario.id
-                return redirect(url_for('usuarios.confirmar_email'))
-            # <<---------------------------->>
+                return redirect(url_for('usuarios.login'))
 
             session['usuario_id'] = usuario.id
             session['usuario_nome'] = usuario.nome
             flash(f'Login realizado com sucesso! Bem-vindo, {usuario.nome}!', 'success')
             return redirect(url_for('home.index'))
-        
         else:
             flash('Email/Telefone ou senha inválidos. Tente novamente.', 'error')
             return redirect(url_for('usuarios.login'))

@@ -1,17 +1,234 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Confirmar E-mail</title>
-</head>
-<body>
-    <form method="POST">
-    <label>Email</label>
-    <input type="email" name="email" required>
+{% extends 'base.html' %}
+{% block title %}Confirmar E-mail - iFome{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home.index') }}">
+                    <!-- Logo PNG -->
+                    <img class="h-12 w-auto" src="{{ url_for('static', filename='ifome-branco.png') }}" alt="ifome Logo" />
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('usuarios.cadastro') }}" class="text-gray-700 hover:text-yellow-99 font-medium">←</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <label>Código de confirmação</label>
-    <input type="text" name="codigo" required maxlength="6">
+    <!-- Main Content -->
+    <div class="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl w-full">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Ilustração -->
+                <div class="hidden md:flex justify-center items-center">
+                    <div class="relative">
+                        <!-- Círculo de fundo -->
+                        <div class="w-96 h-96 bg-gradient-to-br from-yellow-99/30 to-yellow-99-light/20 rounded-full flex items-center justify-center">
+                            <!-- Ilustração de entrega -->
+                            <div class="text-center">
+                                <div class="text-8xl mb-4">📧</div>
+                                <div class="flex space-x-4 justify-center">
+                                    <div class="w-12 h-12 bg-yellow-99 rounded-full flex items-center justify-center text-black font-bold text-xl">✓</div>
+                                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-bold text-xl">🔒</div>
+                                    <div class="w-12 h-12 bg-yellow-99 rounded-full flex items-center justify-center text-black font-bold text-xl">📱</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Elementos decorativos -->
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-yellow-99 rounded-full animate-bounce"></div>
+                        <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-yellow-99-dark rounded-full animate-pulse"></div>
+                        <div class="absolute top-1/2 -left-8 w-4 h-4 bg-yellow-99-light rounded-full animate-ping"></div>
+                    </div>
+                </div>
 
-    <button type="submit">Confirmar</button>
-</form>
-</body>
-</html>
+                <!-- Formulário -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-yellow-99 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Confirme seu E-mail</h1>
+                        <p class="text-gray-600 text-lg">
+                            Digite o código de 6 dígitos que enviamos para seu e-mail
+                        </p>
+                    </div>
+
+                    <form id="confirm-form" method="POST" class="space-y-6">
+                        <!-- Campo de E-mail -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                E-mail *
+                            </label>
+                            <div class="relative">
+                                <input type="email" 
+                                       id="email" 
+                                       name="email" 
+                                       required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent text-lg"
+                                       placeholder="seu@email.com">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campo de Código -->
+                        <div>
+                            <label for="codigo" class="block text-sm font-medium text-gray-700 mb-2">
+                                Código de Confirmação *
+                            </label>
+                            <div class="flex space-x-2 justify-center">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="0">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="1">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="2">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="3">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="4">
+                                <input type="text" 
+                                       class="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-99 focus:border-transparent code-input"
+                                       maxlength="1" 
+                                       data-index="5">
+                            </div>
+                            <!-- Campo oculto para enviar o código completo -->
+                            <input type="hidden" id="codigo" name="codigo" required maxlength="6">
+                        </div>
+
+                        <!-- Botão de Confirmação -->
+                        <div class="pt-4">
+                            <button type="submit" 
+                                    id="confirm-btn"
+                                    class="w-full bg-yellow-99 text-black py-4 rounded-lg text-lg font-bold hover:bg-yellow-99-dark transition duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                                Confirmar E-mail
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Informações adicionais -->
+                    <div class="mt-8 p-4 bg-yellow-99/10 rounded-lg">
+                        <div class="flex items-start space-x-3">
+                            <div class="flex-shrink-0">
+                                <svg class="w-5 h-5 text-yellow-99 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="text-sm text-gray-700">
+                                <p class="font-medium mb-1">Dica importante:</p>
+                                <ul class="space-y-1 text-gray-600">
+                                    <li>• Verifique sua caixa de spam se não receber o código</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}{% endblock %}  <!-- NAO exibe o footer da base -->
+
+{% block scripts %}
+    <script>
+        // Funcionalidade dos campos de código
+        const codeInputs = document.querySelectorAll('.code-input');
+        const hiddenCodeInput = document.getElementById('codigo');
+        const confirmBtn = document.getElementById('confirm-btn');
+
+        // Função para atualizar o código completo
+        function updateCode() {
+            let code = '';
+            codeInputs.forEach(input => {
+                code += input.value;
+            });
+            hiddenCodeInput.value = code;
+            
+            // Habilitar/desabilitar botão baseado no código completo
+            if (code.length === 6) {
+                confirmBtn.disabled = false;
+                confirmBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                confirmBtn.disabled = true;
+                confirmBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // Adicionar eventos aos campos de código
+        codeInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                const value = e.target.value;
+                
+                // Permitir apenas números
+                if (!/^\d*$/.test(value)) {
+                    e.target.value = '';
+                    return;
+                }
+
+                updateCode();
+
+                // Mover para o próximo campo automaticamente
+                if (value && index < codeInputs.length - 1) {
+                    codeInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', function(e) {
+                // Backspace: mover para o campo anterior
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    codeInputs[index - 1].focus();
+                }
+                
+                // Setas para navegação
+                if (e.key === 'ArrowLeft' && index > 0) {
+                    codeInputs[index - 1].focus();
+                }
+                if (e.key === 'ArrowRight' && index < codeInputs.length - 1) {
+                    codeInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text');
+                const numbers = pastedData.replace(/\D/g, '').slice(0, 6);
+                
+                // Preencher os campos com os números colados
+                for (let i = 0; i < numbers.length && i < codeInputs.length; i++) {
+                    codeInputs[i].value = numbers[i];
+                }
+                
+                updateCode();
+                
+                // Focar no próximo campo vazio ou no último
+                const nextEmptyIndex = Math.min(numbers.length, codeInputs.length - 1);
+                codeInputs[nextEmptyIndex].focus();
+            });
+        });
+
+        // Inicializar estado do botão
+        updateCode();
+        
+        // Focar no primeiro campo ao carregar
+        codeInputs[0].focus();
+    </script>
+{% endblock scripts %}
