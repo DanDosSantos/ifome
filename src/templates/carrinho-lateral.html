@@ -20,8 +20,6 @@
       <span class="font-bold">Total:</span>
       <span id="cart-total" class="text-green-600 font-bold text-lg">R$ 0,00</span>
     </div>
-    <button id="cart-pagamento" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded-lg">
-      Escolher forma de pagamento
-    </button>
+    <a href="{{ url_for('pedido.finalizar_pedido') }}" id="cart-pagamento" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded-lg">Finalizar Pedido</a>
   </div>
 </aside>

@@ -33,6 +33,7 @@ def create_app():
     from src.controllers.restaurante import restaurante_bp
     from src.controllers.cardapio_controller import cardapio_bp
     from src.controllers.produto_controller import produto_bp
+    from src.controllers.pedido import pedido_bp
 
 
     app.register_blueprint(home_bp)
@@ -40,6 +41,7 @@ def create_app():
     app.register_blueprint(restaurante_bp)
     app.register_blueprint(cardapio_bp)
     app.register_blueprint(produto_bp)
+    app.register_blueprint(pedido_bp)
     
 
     return app
