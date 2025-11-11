@@ -45,21 +45,45 @@ document.addEventListener('DOMContentLoaded', function () {
             itemsDiv.innerHTML = '<p class="text-black font-medium text-lg text-center mt-10">Carrinho vazio</p>';
         } else {
             carrinho.forEach((item, idx) => {
-            const subtotal = item.preco * item.quantidade;
-            total += subtotal;
-            const div = document.createElement('div');
-            div.className = "flex items-center justify-between gap-2 mb-4";
-            div.innerHTML = `
-                <div class="flex-1 min-w-0">
-                <div class="font-medium text-gray-900 truncate">${item.nome_item}</div>
-                <div class="text-sm text-gray-500">Qtd: ${item.quantidade}</div>
-                </div>
-                <div class="flex flex-col items-end">
-                <div class="text-green-600 font-bold">R$ ${subtotal.toFixed(2)}</div>
-                <button class="ml-2 text-red-500 text-xl" title="Remover" onclick="removerDoCarrinho(${idx})">&times;</button>
-                </div>
-            `;
-            itemsDiv.appendChild(div);
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between gap-2 mb-4";
+                div.innerHTML = `
+                    <div class="flex-1 min-w-0">
+                        <div class="font-medium text-gray-900 truncate">${item.nome_item}</div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <button class="minus bg-gray-200 px-2 rounded" data-idx="${idx}">-</button>
+                            <span class="text-gray-900 font-bold">${item.quantidade}</span>
+                            <button class="plus bg-gray-200 px-2 rounded" data-idx="${idx}">+</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <div class="text-green-600 font-bold">R$ ${subtotal.toFixed(2)}</div>
+                        <button class="ml-2 text-red-500 text-xl" title="Remover" onclick="removerDoCarrinho(${idx})">&times;</button>
+                    </div>
+                `;
+                itemsDiv.appendChild(div);
+            });
+
+            // Adiciona eventos aos botões de quantidade
+            itemsDiv.querySelectorAll('.plus').forEach(btn => {
+                btn.onclick = function() {
+                    const idx = parseInt(this.dataset.idx);
+                    carrinho[idx].quantidade++;
+                    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                    atualizarCarrinho();
+                };
+            });
+            itemsDiv.querySelectorAll('.minus').forEach(btn => {
+                btn.onclick = function() {
+                    const idx = parseInt(this.dataset.idx);
+                    if (carrinho[idx].quantidade > 1) {
+                        carrinho[idx].quantidade--;
+                        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                        atualizarCarrinho();
+                    }
+                };
             });
         }
 
